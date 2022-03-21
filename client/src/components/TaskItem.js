@@ -7,16 +7,16 @@ import classes from "./TaskItem.module.css";
 function TaskItem(props){
     return (
         <div className={classes.container}>
-            <h3 className={classes.title}>{props.title}</h3>
+            <p className={classes.title}>{props.title}</p>
             <p className={classes.space}> </p>
-            <p className={classes.properties}>Note: ...</p>
-            <p className={classes.properties}>Cat: {props.category} </p>
-            <p className={classes.properties}>Sta: {props.status} </p>
-            <p className={classes.properties}>Loc: {props.location} </p>
-            <p className={classes.properties}>ESD: {props.esd} </p>
-            <p className={classes.properties}>EED: {props.eed} </p>
-            <p className={classes.properties}>EST: {props.est} </p>
-            <p className={classes.properties}>EET: {props.eet} </p>
+            <p className={classes.properties}>Note: ... ·{'\u00A0'}</p>
+            <p className={classes.properties}>Cat: {props.category} ·{'\u00A0'}</p>
+            <p className={classes.properties}>Sta: {props.status} ·{'\u00A0'}</p>
+            <p className={classes.properties}>Loc: {props.location} ·{'\u00A0'}</p>
+            <p className={classes.properties}>ESD: {props.esd} ·{'\u00A0'}</p>
+            <p className={classes.properties}>EED: {props.eed} ·{'\u00A0'}</p>
+            <p className={classes.properties}>EST: {props.est} ·{'\u00A0'}</p>
+            <p className={classes.properties}>EET: {props.eet}</p>
         </div>
     );
 }

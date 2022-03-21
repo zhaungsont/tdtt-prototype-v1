@@ -4,6 +4,7 @@
 */
 
 import TaskItem from "./TaskItem";
+import classes from "./TaskList.module.css";
 
 // 暫時用的資料
 const TODOS = [
@@ -61,7 +62,8 @@ const TODOS = [
 
 function TaskList(){
     return (
-        <div>
+        <div className={classes.dev}>
+            <h2>Your Tasks</h2>
             {TODOS.map((todo) => {
                 return (
                     <TaskItem 

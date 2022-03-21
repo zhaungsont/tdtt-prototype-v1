@@ -1,9 +1,10 @@
 .container {
     display: flex;
+    
 }
 
 .title {
-    align-self: flex-start;
+    align-self: flex-end;
 }
 
 .space {
