@@ -6,19 +6,18 @@ import classes from "./TaskItem.module.css";
 
 function TaskItem(props){
     return (
-        <li>
-            <div className={classes.taskItem}>
-            
-                <h1>{props.title}</h1>
-                <p>
-                {props.note} <br />
-                {props.category} <br />
-                {props.status} <br />
-                {props.location} <br />
-                </p>
-            
-            </div>
-        </li>
+        <div className={classes.container}>
+            <h3 className={classes.title}>{props.title}</h3>
+            <p className={classes.space}> </p>
+            <p className={classes.properties}>Note: ...</p>
+            <p className={classes.properties}>Cat: {props.category} </p>
+            <p className={classes.properties}>Sta: {props.status} </p>
+            <p className={classes.properties}>Loc: {props.location} </p>
+            <p className={classes.properties}>ESD: {props.esd} </p>
+            <p className={classes.properties}>EED: {props.eed} </p>
+            <p className={classes.properties}>EST: {props.est} </p>
+            <p className={classes.properties}>EET: {props.eet} </p>
+        </div>
     );
 }
 

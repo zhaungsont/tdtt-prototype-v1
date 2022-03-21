@@ -1,6 +1,15 @@
-.taskItem {
-    border: 5px;
-    border-radius: 5px;
-    border-style: solid;
-    margin: 1em;
+.container {
+    display: flex;
+}
+
+.title {
+    align-self: flex-start;
+}
+
+.space {
+    flex-grow: 10;
+}
+
+.properties {
+    align-self: flex-end;
 }

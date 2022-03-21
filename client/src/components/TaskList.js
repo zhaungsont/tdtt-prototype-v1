@@ -9,7 +9,7 @@ import TaskItem from "./TaskItem";
 const TODOS = [
     {
         "title": "Study Python",
-        "note": "ch11-25",
+        "note": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
         "category": "Academic",
         "status": "done", // "not yet started", "in progress", "done"
         "location": "Taipei",
@@ -62,17 +62,26 @@ const TODOS = [
 function TaskList(){
     return (
         <div>
-            <ul>
-                {TODOS.map((todo) => {
-                    return (<TaskItem 
+            {TODOS.map((todo) => {
+                return (
+                    <TaskItem 
                     title={todo.title}
                     note={todo.note}
                     category={todo.category}
                     status={todo.status}
                     location={todo.location}
+                    esd={todo.ESD}
+                    asd={todo.ASD}
+                    eed={todo.EED}
+                    aed={todo.AED}
+                    est={todo.ESD}
+                    ast={todo.ASD}
+                    eet={todo.EET}
+                    aet={todo.AET}
+                    ed={todo.ED}
+                    ad={todo.AD}
                     />)
-                })}
-            </ul>
+            })}
         </div>
     );
 }
