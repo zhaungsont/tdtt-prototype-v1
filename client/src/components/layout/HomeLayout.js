@@ -6,7 +6,6 @@ function HomeLayout(){
     return (
         <div className={classes.mainContent}>
             <Dashboard />
-            hi
             <TaskList />
         </div>
     );
