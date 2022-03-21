@@ -14,3 +14,14 @@
 .properties {
     align-self: flex-end;
 }
+
+.icons {
+    display: block;
+    max-width:20px;
+    max-height:20px;
+    width: auto;
+    height: auto;
+    position: relative;
+    left: 0px;
+    top: 15px;
+}
