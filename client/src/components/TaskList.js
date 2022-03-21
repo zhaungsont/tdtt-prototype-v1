@@ -63,7 +63,7 @@ import TODOS from "../dummy-data/tasks/todos";
 
 function TaskList(){
     return (
-        <div className={classes.dev}>
+        <div className={classes.list}>
             <h2>Your Tasks</h2>
             {TODOS.map((todo) => {
                 return (
