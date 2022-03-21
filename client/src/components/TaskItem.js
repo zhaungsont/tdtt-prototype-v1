@@ -10,8 +10,8 @@ function TaskItem(props){
             <p className={classes.title}>{props.title}</p>
             <p className={classes.space}> </p>
 
-            {props.note && <img className={classes.icons} src={require("../dummy-data/icons/note.png")}/> }
-            {props.note && <p> {props.note} ·{'\u00A0'}</p>}
+            {props.note ? <img className={classes.icons} src={require("../dummy-data/icons/note1.png")}/> : <img className={classes.icons} src={require("../dummy-data/icons/note0.png")}/> }
+            
 
             {props.category && <img className={classes.icons} src={require("../dummy-data/icons/category.png")}/> }
             {props.category && <p> {props.category} ·{'\u00A0'}</p>}

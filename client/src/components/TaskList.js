@@ -5,60 +5,61 @@
 
 import TaskItem from "./TaskItem";
 import classes from "./TaskList.module.css";
+import TODOS from "../dummy-data/tasks/todos";
 
 // 暫時用的資料
-const TODOS = [
-    {
-        "title": "Study Python I",
-        "note": "ch11-25",
-        "category": "Academic",
-        "status": "done", // "not yet started", "in progress", "done"
-        "location": "Taipei",
-        "ESD": "3/21",
-        "ASD": "3/21",
-        "EED": "3/22",
-        "AED": "3/21",
-        "EST": "15:00",
-        "AST": "15:03",
-        "EET": "16:00",
-        "AET": "17:15",
-        "ED": "00:60:00",
-        "AD": "01:15:00",
-    },
-    {
-        "title": "Study Python II",
-        "note": "ch26-40",
-        "category": "Academic",
-        "status": "nyt", // "not yet started", "in progress", "done"
-        "location": "Taoyuan",
-        "ESD": "3/23",
-        "ASD": "",
-        "EED": "",
-        "AED": "",
-        "EST": "21:00",
-        "AST": "",
-        "EET": "22:00",
-        "AET": "",
-        "ED": "00:60:00",
-        "AD": "",
-    },
-    {
-        "title": "Build Front-end",
-        "note": "collab w/ Sun Yu",
-        "category": "Dev",
-        "status": "ip", // "not yet started", "in progress", "done"
-        "location": "",
-        "ESD": "3/21",
-        "ASD": "3/21",
-        "EED": "3/22",
-        "AED": "3/21",
-        "EST": "15:00",
-        "AST": "15:03",
-        "EET": "16:00",
-        "AET": "17:15",
-        "ED": "00:60:00",
-        "AD": "01:15:00",
-    }]
+// const TODOS = [
+//     {
+//         "title": "Study Python I",
+//         "note": "ch11-25",
+//         "category": "Academic",
+//         "status": "done", // "not yet started", "in progress", "done"
+//         "location": "Taipei",
+//         "ESD": "3/21",
+//         "ASD": "3/21",
+//         "EED": "3/22",
+//         "AED": "3/21",
+//         "EST": "15:00",
+//         "AST": "15:03",
+//         "EET": "16:00",
+//         "AET": "17:15",
+//         "ED": "00:60:00",
+//         "AD": "01:15:00",
+//     },
+//     {
+//         "title": "Study Python II",
+//         "note": "ch26-40",
+//         "category": "Academic",
+//         "status": "nyt", // "not yet started", "in progress", "done"
+//         "location": "Taoyuan",
+//         "ESD": "3/23",
+//         "ASD": "",
+//         "EED": "",
+//         "AED": "",
+//         "EST": "21:00",
+//         "AST": "",
+//         "EET": "22:00",
+//         "AET": "",
+//         "ED": "00:60:00",
+//         "AD": "",
+//     },
+//     {
+//         "title": "Build Front-end",
+//         "note": "collab w/ Sun Yu",
+//         "category": "Dev",
+//         "status": "ip", // "not yet started", "in progress", "done"
+//         "location": "",
+//         "ESD": "3/21",
+//         "ASD": "3/21",
+//         "EED": "3/22",
+//         "AED": "3/21",
+//         "EST": "15:00",
+//         "AST": "15:03",
+//         "EET": "16:00",
+//         "AET": "17:15",
+//         "ED": "00:60:00",
+//         "AD": "01:15:00",
+//     }]
 
 function TaskList(){
     return (
