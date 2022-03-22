@@ -1,11 +1,17 @@
-import HomeLayout from "../components/layout/HomeLayout";
 import Sidebar from "../components/Sidebar";
+import Dashboard from "../components/Dashboard";
+import TaskList from "../components/TaskList";
+import MainContent from "../components/ui/MainContent";
 
 function Home(){
     return (
         <div>
             <Sidebar />
-            <HomeLayout />
+
+            <MainContent>
+                <Dashboard />
+                <TaskList />
+            </MainContent>
         </div>
     );
 }

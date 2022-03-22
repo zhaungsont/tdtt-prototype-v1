@@ -1,0 +1,36 @@
+/* ul {
+    margin-top: 3em;
+    list-style: none;
+}
+
+li {
+    font-size: 1.5em;
+    margin: 0.75em 1.75em 0.75em 0;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+li:hover {
+    background-color: rgb(230, 230, 230);
+    cursor: pointer;
+}
+
+.test {
+    margin: 0.75em 1.75em 0.75em 0;
+}
+
+.test:hover {
+    background-color: rgb(230, 230, 230);
+} */
+
+.navcss {
+    font-size: 1.5em;
+    margin: 0.75em 1.75em 0.75em 1.75em;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.navcss:hover{
+    background-color: rgb(230, 230, 230);
+}
+
