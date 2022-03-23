@@ -1,9 +1,9 @@
 import { useState } from "react";
 import CreationCard from "./CreationCard";
 import Backdrop from "./Backdrop";
-import classes from "./CreationList.module.css";
+import classes from "./CreationInput.module.css";
 
-function CreationList(){
+function CreationInput(){
     
     const [expanded, setExpanded] = useState(false)
 
@@ -20,7 +20,8 @@ function CreationList(){
     return(
         <div>
             {expanded ? null : <div onClick={expandHandler}  className={classes.list}> 
-                Write something...
+                <span><em>Write something... </em>
+                <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></span>
             </div>}
                 
                 {expanded && <CreationCard />}
@@ -30,4 +31,4 @@ function CreationList(){
     );
 }
 
-export default CreationList;
+export default CreationInput;

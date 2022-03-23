@@ -6,7 +6,7 @@
 import TaskItem from "./TaskItem";
 import classes from "./TaskList.module.css";
 import TODOS from "../dummy-data/tasks/todos";
-import CreationList from "./CreationList";
+import CreationInput from "./CreationInput";
 
 // 暫時用的資料
 // const TODOS = [
@@ -66,7 +66,7 @@ function TaskList(){
     return (
         <div className={classes.list}>
             <h2>Today's Tasks</h2>
-            <CreationList />
+            <CreationInput />
 
             {TODOS.map((todo) => {
                 return (

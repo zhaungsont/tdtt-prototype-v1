@@ -1,7 +1,6 @@
 .card {
     position: relative;
     z-index: 5;
-    background-color: rgb(253, 253, 253);
     width: 100%;
     border: solid;
     border-width: 1px;
@@ -11,10 +10,10 @@
 textarea {
     display: block;
     resize: none;
-    width: 99%;
+    width: 98%;
     border: none;
     outline: none;
-    margin-left: 3px;
+    margin-left: 0.5em;
 }
 
 .container {
@@ -24,12 +23,12 @@ textarea {
 
 input.title{
     margin-top: 0em;
+    margin-left: 0.5em;
     font-size: 1em;
     outline: none;
     border: 0;
-    width: 99%;
+    width: 98%;
     line-height: 3em;
-    margin-left: 3px;
 }
 div.spacer{
     font-size: 0; 

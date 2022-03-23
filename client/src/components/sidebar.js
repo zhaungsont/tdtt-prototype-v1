@@ -24,6 +24,7 @@ function Sidebar(){
             : <img onClick={resetCount} className={classes.pfp} src={require("../dummy-data/icons/rr.png")}></img>}
             {/* <h1>{counter}</h1> */}
             <SideNav />
+            {counter == 20 && <div style={{'text-align': 'center'}}>Like this app? Please tell me how you think about it: <a href = "mailto: zhsont@gmail.com">zhsont@gmail.com</a>. </div>}
         </div>
     );
 }

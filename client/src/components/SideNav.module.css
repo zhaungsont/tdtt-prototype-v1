@@ -23,6 +23,10 @@ li:hover {
     background-color: rgb(230, 230, 230);
 } */
 
+.sidenav {
+    margin-top: 3em;
+}
+
 .navcss {
     font-size: 1.5em;
     margin: 0.75em 1.75em 0.75em 1.75em;
@@ -30,7 +34,7 @@ li:hover {
     border-radius: 5px;
 }
 
-a{
+.sidenav a{
     text-decoration: none;
     color: black;
     font-weight: bold;
@@ -40,3 +44,9 @@ a{
     background-color: rgb(230, 230, 230);
 }
 
+hr {
+    margin: auto;
+    width: 6em;
+    border: 1px solid rgb(109, 109, 109);
+    border-radius: 1px;
+}

@@ -79,29 +79,30 @@ function CreationCard(){
                 <textarea onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
                 
                 <div className={classes.container}>
-                    <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
                     {ESD && <div>
                         <label htmlFor="esd">Estimated Start Date: </label>
                         <input type="date" id="esd" name="esd" className={classes.properties}></input>
                     </div>}
+                    <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
 
-                    <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
                     {EED && <div>
                         <label htmlFor="eed">Estimated End Date: </label>
                         <input type="date" id="eed" name="eed" className={classes.properties}></input>
                     </div>}
+                    <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
 
-                    <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
                     {EST && <div>
                         <label htmlFor="est">Estimated Start Time:</label>
                         <input type="time" id="est" name="est" className={classes.properties}></input>
                     </div>}
+                    <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
 
-                    <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
                     {EET && <div>
                         <label htmlFor="eet">Estimated End Time:</label>
                         <input type="time" id="eet" name="eet" className={classes.properties}></input>
                     </div>}
+                    <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
+
                 </div>
                 {(ESD||EED||EST||EET) ? null : <div className={classes.spacer}></div>}
 

@@ -1,0 +1,19 @@
+.list {
+    padding: 1em 0.5em;
+    background-color: rgb(247, 247, 247);
+    color: rgb(107, 107, 107);
+    border-radius: 5px;
+}
+
+.list:hover{
+    background-color: rgb(230, 230, 230);;
+    cursor: pointer;
+    
+}
+
+.stbutton{
+    position: relative;
+    left: calc(100% - 5em - 100px);
+    width: 2em;
+    vertical-align: middle; 
+}
