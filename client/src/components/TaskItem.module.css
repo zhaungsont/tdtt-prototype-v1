@@ -1,6 +1,10 @@
+.hover:hover {
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
 .container {
     display: flex;
-    
 }
 
 .title {

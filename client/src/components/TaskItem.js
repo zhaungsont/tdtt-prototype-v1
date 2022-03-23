@@ -6,7 +6,9 @@ import classes from "./TaskItem.module.css";
 
 function TaskItem(props){
     return (
+    <div className={classes.hover}>
         <div className={classes.container}>
+            
             <p className={classes.title}>{props.title}</p>
             <p className={classes.space}> </p>
 
@@ -40,6 +42,7 @@ function TaskItem(props){
             {props.ad && <img className={classes.icons} src={require("../dummy-data/icons/ad.png")}/> }
             {props.ad && <p>{props.ad} </p>}
         </div>
+    </div>
     );
 }
 

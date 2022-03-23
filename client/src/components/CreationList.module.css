@@ -1,0 +1,10 @@
+.list {
+    padding: 1em 0;
+}
+
+.list:hover{
+    background-color: aliceblue;
+    cursor: pointer;
+
+}
+
