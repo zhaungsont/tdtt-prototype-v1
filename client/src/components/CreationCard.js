@@ -76,6 +76,8 @@ function CreationCard(){
 
 
                 <input onChange={handleTitleChange} onClick={closeAllProperties} className={classes.title} name="title" autoFocus placeholder="Title"></input>
+                <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
+                
                 <textarea onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
                 
                 <div className={classes.container}>

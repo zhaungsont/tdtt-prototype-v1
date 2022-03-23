@@ -7,6 +7,24 @@
     border-radius: 5px;
 }
 
+input.title{
+    margin-top: 0em;
+    margin-left: 0.5em;
+    font-size: 1em;
+    outline: none;
+    border: 0;
+    width: 90%;
+    line-height: 3em;
+}
+
+.stbutton{
+    position: relative;
+    top: 5px;
+    left: 28px;
+    width: 2em;
+    vertical-align: middle; 
+}
+
 textarea {
     display: block;
     resize: none;
@@ -21,15 +39,6 @@ textarea {
     justify-content: flex-end;
 }
 
-input.title{
-    margin-top: 0em;
-    margin-left: 0.5em;
-    font-size: 1em;
-    outline: none;
-    border: 0;
-    width: 98%;
-    line-height: 3em;
-}
 div.spacer{
     font-size: 0; 
     height: 28px;
