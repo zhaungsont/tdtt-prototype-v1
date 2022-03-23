@@ -2,6 +2,9 @@ import classes from "./CreationCard.module.css";
 import { useState, useRef, useEffect } from "react";
 import Backdrop from "./Backdrop";
 
+// import DatePicker from "react-datepicker";
+
+// import "react-datepicker/dist/react-datepicker.css";
 
 function CreationCard(){
 
@@ -68,38 +71,45 @@ function CreationCard(){
     function submitHandler(event){
         event.preventDefault();
     }
+
+    const [startDate, setStartDate] = useState(new Date());
+
     return(
         <div className={classes.card}>
             <form  onSubmit={submitHandler}>
+
+{/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
+
+
                 <input onChange={handleTitleChange} onClick={closeAllProperties} className={classes.title} name="title" autoFocus placeholder="Title"></input>
                 <textarea onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
                 
-                <div className={classes.properties}>
-                    <img onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
+                <div className={classes.container}>
+                    <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
                     {ESD && <div>
                         <label htmlFor="esd">Estimated Start Date: </label>
-                        <input type="date" id="esd" name="esd"></input>
+                        <input type="date" id="esd" name="esd" className={classes.properties}></input>
                     </div>}
 
-                    <img onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
+                    <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
                     {EED && <div>
                         <label htmlFor="eed">Estimated End Date: </label>
-                        <input type="date" id="eed" name="eed"></input>
+                        <input type="date" id="eed" name="eed" className={classes.properties}></input>
                     </div>}
 
-                    <img onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
+                    <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
                     {EST && <div>
                         <label htmlFor="est">Estimated Start Time:</label>
-                        <input type="time" id="est" name="est"></input>
+                        <input type="time" id="est" name="est" className={classes.properties}></input>
                     </div>}
 
-                    <img onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
+                    <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
                     {EET && <div>
                         <label htmlFor="eet">Estimated End Time:</label>
-                        <input type="time" id="eet" name="eet"></input>
+                        <input type="time" id="eet" name="eet" className={classes.properties}></input>
                     </div>}
                 </div>
-                <div className={classes.spacer}></div>
+                {(ESD||EED||EST||EET) ? null : <div className={classes.spacer}></div>}
 
 
 

@@ -17,7 +17,7 @@ textarea {
     margin-left: 3px;
 }
 
-.properties {
+.container {
     display: flex;
     justify-content: flex-end;
 }
@@ -33,7 +33,7 @@ input.title{
 }
 div.spacer{
     font-size: 0; 
-    height: 20px;
+    height: 28px;
     line-height: 0;
 }
 
@@ -42,7 +42,7 @@ label {
     display: block;
 }
 
-img {
+.icons {
     display: block;
     max-width:20px;
     max-height:20px;
@@ -53,4 +53,8 @@ img {
 
     margin: 0 5px;
     cursor: pointer;
+}
+
+.properties{
+    margin-bottom: 10px;
 }
