@@ -24,33 +24,28 @@ function CreationCard(){
     //     }, [isEditing]);
     // }
     const [ESD, setESD] = useState(false);
-
     function openESD(){
         closeAllProperties()
         setESD(!ESD);
     }
 
     const [EED, setEED] = useState(false);
-
     function openEED(){
         closeAllProperties()
         setEED(!EED);
     }
 
     const [EST, setEST] = useState(false);
-
     function openEST(){
         closeAllProperties()
         setEST(!EST);
     }
 
     const [EET, setEET] = useState(false);
-
     function openEET(){
         closeAllProperties()
         setEET(!EET);
     }
-
 
     function closeAllProperties(){
         setESD(false);
@@ -66,7 +61,6 @@ function CreationCard(){
     function handleESDChange(event){
         console.log(event.target.value); //whatever the user types in
     }
-
 
     function submitHandler(event){
         event.preventDefault();
@@ -129,6 +123,9 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
 <input type="time">
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time
 
+REACT DATEPICKER
+https://reactdatepicker.com/
+https://www.npmjs.com/package/react-datepicker
 
 
 */
