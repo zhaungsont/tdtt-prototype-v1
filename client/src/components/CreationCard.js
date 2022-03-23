@@ -1,6 +1,7 @@
 import classes from "./CreationCard.module.css";
 import { useState, useRef, useEffect } from "react";
 import Backdrop from "./Backdrop";
+import { func } from "prop-types";
 
 // import DatePicker from "react-datepicker";
 
@@ -47,11 +48,18 @@ function CreationCard(){
         setEET(!EET);
     }
 
+    const [category, setCategory] = useState(false);
+    function openCategory(){
+        closeAllProperties()
+        setCategory(!category);
+    }
+
     function closeAllProperties(){
         setESD(false);
         setEED(false);
         setEST(false);
         setEET(false);
+        setCategory(false);
     }
 
     function handleTitleChange(event){
@@ -76,7 +84,7 @@ function CreationCard(){
 
 
                 <input onChange={handleTitleChange} onClick={closeAllProperties} className={classes.title} name="title" autoFocus placeholder="Title"></input>
-                <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
+                <a href="https://youtu.be/dQw4w9WgXcQ"><img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></a>
                 
                 <textarea onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
                 
@@ -105,8 +113,21 @@ function CreationCard(){
                     </div>}
                     <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
 
+                    {category && <div>
+                    <label for="category">Category</label>
+                    <select name="category" id="category">
+                        <option value="">(None)</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Coding">Coding</option>
+                        <option value="Home">Home</option>
+                    </select>
+                    </div>}
+                    <img className={classes.icons} onClick={openCategory} src={require("../dummy-data/icons/category.png")}></img>
+
+                    
+
                 </div>
-                {(ESD||EED||EST||EET) ? null : <div className={classes.spacer}></div>}
+                {(ESD||EED||EST||EET||category) ? null : <div className={classes.spacer}></div>}
 
 
 

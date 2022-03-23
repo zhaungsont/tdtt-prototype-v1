@@ -66,3 +66,8 @@ label {
 .properties{
     margin-bottom: 10px;
 }
+
+select {
+    height: 1.75em;
+    margin-bottom: 0.8em;
+}
