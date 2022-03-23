@@ -13,7 +13,13 @@ function Dashboard(){
     }, 60000);
 
     useEffect(() => {
-        if (hour < 12){
+        if (hour == 0) {
+            setGreeting('12 點了還不睡啊')
+        } else if (hour < 2){
+            setGreeting(hour + ' 點了還不睡啊')
+        } else if (hour < 4){
+            setGreeting(hour + ' 點了啊啊快睡啊啊啊')
+        } else if (hour < 12){
             setGreeting('Good Morning');
         } else if (hour < 18){
             setGreeting('Good Afternoon');
