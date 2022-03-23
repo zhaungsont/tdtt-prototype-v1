@@ -16,31 +16,31 @@ function TaskItem(props){
             
 
             {props.category && <img className={classes.icons} src={require("../dummy-data/icons/category.png")}/> }
-            {props.category && <p> {props.category} ·{'\u00A0'}</p>}
+            {props.category && <p className={classes.properties}> {props.category} {'\u00A0'}</p>}
 
             {props.status && <img className={classes.icons} src={require("../dummy-data/icons/status.png")}/> }
-            {props.status && <p> {props.status} ·{'\u00A0'}</p>}
+            {props.status && <p className={classes.properties}> {props.status} {'\u00A0'}</p>}
 
             {props.location && <img className={classes.icons} src={require("../dummy-data/icons/location.png")}/> }
-            {props.location && <p>{props.location} ·{'\u00A0'}</p>}
+            {props.location && <p className={classes.properties}>{props.location} {'\u00A0'}</p>}
 
             {props.esd && <img className={classes.icons} src={require("../dummy-data/icons/esd.png")}/> }
-            {props.esd && <p>{props.esd} ·{'\u00A0'}</p>}
+            {props.esd && <p className={classes.properties}>{props.esd} {'\u00A0'}</p>}
 
             {props.asd && <img className={classes.icons} src={require("../dummy-data/icons/asd.png")}/> }
-            {props.asd && <p>{props.asd} ·{'\u00A0'}</p>}
+            {props.asd && <p className={classes.properties}>{props.asd} {'\u00A0'}</p>}
 
             {props.est && <img className={classes.icons} src={require("../dummy-data/icons/est.png")}/> }
-            {props.est && <p>{props.est} ·{'\u00A0'}</p>}
+            {props.est && <p className={classes.properties}>{props.est} {'\u00A0'}</p>}
 
             {props.ast && <img className={classes.icons} src={require("../dummy-data/icons/ast.png")}/> }
-            {props.ast && <p>{props.ast} ·{'\u00A0'}</p>}
+            {props.ast && <p className={classes.properties}>{props.ast} {'\u00A0'}</p>}
 
             {props.ed && <img className={classes.icons} src={require("../dummy-data/icons/ed.png")}/> }
-            {props.ed && <p>{props.ed} ·{'\u00A0'}</p>}
+            {props.ed && <p className={classes.properties}>{props.ed} {'\u00A0'}</p>}
 
             {props.ad && <img className={classes.icons} src={require("../dummy-data/icons/ad.png")}/> }
-            {props.ad && <p>{props.ad} </p>}
+            {props.ad && <p className={classes.properties}>{props.ad} </p>}
         </div>
     </div>
     );

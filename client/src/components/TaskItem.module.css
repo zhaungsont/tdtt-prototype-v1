@@ -7,7 +7,7 @@
 .container {
     display: flex;
     margin: 0 0.5em;
-    
+    align-items: center;
 }
 
 .title {
@@ -19,18 +19,19 @@
 }
 
 .properties {
-    align-self: flex-end;
+    font-size: 0.75em;
+    
 }
 
 .icons {
-    display: block;
+    display: inline;
     max-width:20px;
     max-height:20px;
     width: auto;
     height: auto;
     position: relative;
     left: 0px;
-    top: 15px;
+    vertical-align: center;
 
     margin-right: 5px;
 }
