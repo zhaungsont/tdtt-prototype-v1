@@ -55,10 +55,23 @@ function CreationCard(){
         setEST(false);
         setEET(false);
     }
+
+    function handleTitleChange(event){
+        console.log(event.target.value); //whatever the user types in
+    }
+
+    function handleESDChange(event){
+        console.log(event.target.value); //whatever the user types in
+    }
+
+
+    function submitHandler(event){
+        event.preventDefault();
+    }
     return(
         <div className={classes.card}>
-            <form>
-                <input onClick={closeAllProperties} className={classes.title} name="title" autoFocus placeholder="Title"></input>
+            <form  onSubmit={submitHandler}>
+                <input onChange={handleTitleChange} onClick={closeAllProperties} className={classes.title} name="title" autoFocus placeholder="Title"></input>
                 <textarea onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
                 
                 <div className={classes.properties}>
