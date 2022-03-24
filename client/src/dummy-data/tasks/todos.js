@@ -1,5 +1,6 @@
 const TODOS = [
     {
+        "id": "whfwfjwiuhfiweuf",
         "title": "Study PHP",
         "note": "",
         "category": "Academic",
@@ -22,6 +23,7 @@ const TODOS = [
         "AD": "01:15:00",
     },
     {
+        "id": "gwegreggwegweg",
         "title": "Build Front",
         "note": "w/ Sun Yu",
         "category": "Coding",
@@ -44,6 +46,7 @@ const TODOS = [
         "AD": "02:42:00",
     },
     {
+        "id": "ijbvinvsd",
         "title": "Buy Milk",
         "note": "全脂鮮乳！！",
         "category": "Home",
@@ -61,6 +64,7 @@ const TODOS = [
         "AD": "",
     },
     {
+        "id": "kfhwoiueghfeiweuf",
         "title": "Study Python II",
         "note": "ch26-40",
         "category": "Academic",
@@ -78,6 +82,7 @@ const TODOS = [
         "AD": "",
     },
     {
+        "id": "whfwwkuhgwkbf",
         "title": "Build Front-end",
         "note": "collab w/ Sun Yu",
         "category": "Coding",
@@ -95,6 +100,7 @@ const TODOS = [
         "AD": "01:15:00",
     },
     {
+        "id": "wh3574398uf",
         "title": "https://youtu.be/dQw4w9WgXcQ",
         "note": "",
         "category": "",
@@ -112,6 +118,7 @@ const TODOS = [
         "AD": "",
     },
     {
+        "id": "whfwfiu3hri2u3",
         "title": "Buy Milk",
         "note": "全脂鮮乳！！",
         "category": "Home",
@@ -129,6 +136,7 @@ const TODOS = [
         "AD": "",
     },
     {
+        "id": "whu3h3f23hoeewweuf",
         "title": "baba yaga",
         "note": "ch26-40",
         "category": "Academic",
@@ -146,6 +154,7 @@ const TODOS = [
         "AD": "",
     },
     {
+        "id": "w32ih3f8hi8euf",
         "title": "Build Front-end",
         "note": "collab w/ Sun Yu",
         "category": "Coding",
@@ -163,6 +172,7 @@ const TODOS = [
         "AD": "01:15:00",
     },
     {
+        "id": "whfwlehf899y92iou4",
         "title": "https://youtu.be/dQw4w9WgXcQ",
         "note": "",
         "category": "",
@@ -180,6 +190,7 @@ const TODOS = [
         "AD": "",
     },
     {
+        "id": "w29y83020uf",
         "title": "Buy Milk",
         "note": "全脂鮮乳！！",
         "category": "Home",
@@ -197,9 +208,10 @@ const TODOS = [
         "AD": "",
     },
     {
-        "title": "baba yaga",
-        "note": "ch26-40",
-        "category": "Academic",
+        "id": "23t4tgreeuf",
+        "title": "Eat Beef Noodles",
+        "note": "喜樂滿足牛肉麵QQ",
+        "category": "Home",
         "status": "nys", // "not yet started", "in progress", "done"
         "location": "Taoyuan",
         "ESD": "3/23",

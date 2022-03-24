@@ -71,6 +71,7 @@ function TaskList(){
             {TODOS.map((todo) => {
                 return (
                     <TaskItem 
+                    key={todo.id}
                     title={todo.title}
                     note={todo.note}
                     category={todo.category}
