@@ -7,6 +7,7 @@ function Achievements(){
             <Sidebar />
             <MainContent>
                 <h1>Achievements</h1>
+                <p>Achievements Unlocked -- You Opened TDTT!</p>
             </MainContent>
         </div>
     );
