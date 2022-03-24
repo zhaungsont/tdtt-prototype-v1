@@ -38,25 +38,21 @@ function CreationCard(props){
         closeAllProperties()
         setEED(!EED);
     }
-
     const [EST, setEST] = useState(false);
     function openEST(){
         closeAllProperties()
         setEST(!EST);
     }
-
     const [EET, setEET] = useState(false);
     function openEET(){
         closeAllProperties()
         setEET(!EET);
     }
-
     const [category, setCategory] = useState(false);
     function openCategory(){
         closeAllProperties()
         setCategory(!category);
     }
-
     function closeAllProperties(){
         setESD(false);
         setEED(false);
@@ -66,8 +62,9 @@ function CreationCard(props){
     }
     
     function handleESDChange(event){
-        console.log(event.target.value); //whatever the user types in
-        
+        console.log(event.target.value); 
+        // PROBLEM: Form Date Selection Cannot be tracked by onChange events
+        // Need another way to implement this!!
     }
 
     const [title, setTitle] = useState('');
@@ -76,7 +73,6 @@ function CreationCard(props){
         tempPackage.sourceTitle = event.target.value;
         props.onExpand(tempPackage);
     }
-
     const [note, setNote] = useState('');
     function handleNoteChange(event){
         // setNote(event.target.value);
@@ -86,17 +82,18 @@ function CreationCard(props){
 
     function submitHandler(event){
         event.preventDefault();
+        // Prevent Default from behavior of jumping out of page
+        // but to let React handle the data & redirect
     }
 
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date()); // unfinished!
 
-
+    // 在創建方塊開啟時偵測 ESC 按鍵，並回傳功能到 CreationInput 頁面做關閉
     function handleKeyPress(event){
         if(event.key === 'Escape'){
             console.log('ESC Detected! ');
             props.onESC();
           }
-        
     }
 
     return(
@@ -171,5 +168,7 @@ REACT DATEPICKER
 https://reactdatepicker.com/
 https://www.npmjs.com/package/react-datepicker
 
+React Handle KeyDown Events with <div>
+https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
 
 */
