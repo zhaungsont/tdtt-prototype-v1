@@ -1,6 +1,7 @@
 import classes from "./Dashboard.module.css";
 import { useState, useEffect } from "react";
 
+
 function Dashboard(){
 
     const [greeting, setGreeting] = useState(null)
@@ -28,7 +29,7 @@ function Dashboard(){
         }
       }, [update]);
 
-    
+
 
     return (
         <div className={classes.dashboard}>

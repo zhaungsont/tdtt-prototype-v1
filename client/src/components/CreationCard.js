@@ -7,7 +7,7 @@ import { func } from "prop-types";
 
 // import "react-datepicker/dist/react-datepicker.css";
 
-function CreationCard(){
+function CreationCard(props){
 
     // https://stackoverflow.com/questions/53314857/how-to-focus-something-on-next-render-with-react-hooks
     // const EditableField = () => {
@@ -24,6 +24,9 @@ function CreationCard(){
     //       }
     //     }, [isEditing]);
     // }
+
+    let tempPackage = {sourceTitle: props.tempData.thisTitle, sourceNote: props.tempData.thisNote};
+
     const [ESD, setESD] = useState(false);
     function openESD(){
         closeAllProperties()
@@ -61,13 +64,24 @@ function CreationCard(){
         setEET(false);
         setCategory(false);
     }
-
-    function handleTitleChange(event){
-        console.log(event.target.value); //whatever the user types in
-    }
-
+    
     function handleESDChange(event){
         console.log(event.target.value); //whatever the user types in
+        
+    }
+
+    const [title, setTitle] = useState('');
+    function handleTitleChange(event){
+        // setTitle(event.target.value);
+        tempPackage.sourceTitle = event.target.value;
+        props.onExpand(tempPackage);
+    }
+
+    const [note, setNote] = useState('');
+    function handleNoteChange(event){
+        // setNote(event.target.value);
+        tempPackage.sourceNote = event.target.value
+        props.onExpand(tempPackage);
     }
 
     function submitHandler(event){
@@ -76,17 +90,23 @@ function CreationCard(){
 
     const [startDate, setStartDate] = useState(new Date());
 
+
+    function handleKeyPress(event){
+        if(event.key === 'Escape'){
+            console.log('ESC Detected! ');
+            props.onESC();
+          }
+        
+    }
+
     return(
-        <div className={classes.card}>
+        <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
             <form  onSubmit={submitHandler}>
 
-{/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-
-
-                <input onChange={handleTitleChange} onClick={closeAllProperties} className={classes.title} name="title" autoFocus placeholder="Title"></input>
+                <input onChange={handleTitleChange} value={props.tempData.thisTitle} onClick={closeAllProperties} className={classes.title} name="title" autoFocus placeholder="Title"></input>
                 <a href="https://youtu.be/dQw4w9WgXcQ"><img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></a>
                 
-                <textarea onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
+                <textarea onChange={handleNoteChange} value={props.tempData.thisNote} onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
                 
                 <div className={classes.container}>
                     {ESD && <div>
@@ -124,7 +144,7 @@ function CreationCard(){
                     </div>}
                     <img className={classes.icons} onClick={openCategory} src={require("../dummy-data/icons/category.png")}></img>
 
-                    
+
 
                 </div>
                 {(ESD||EED||EST||EET||category) ? null : <div className={classes.spacer}></div>}

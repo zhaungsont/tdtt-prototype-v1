@@ -17,6 +17,8 @@ function Sidebar(){
         setCounter(0);
     }
 
+
+
     return (
         <div className={classes.sidebar}>
             <h2 className={classes.username}>炫風雞腿堡</h2>

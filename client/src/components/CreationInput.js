@@ -2,6 +2,7 @@ import { useState } from "react";
 import CreationCard from "./CreationCard";
 import Backdrop from "./Backdrop";
 import classes from "./CreationInput.module.css";
+import { data } from "./Pie";
 
 function CreationInput(){
     
@@ -15,6 +16,26 @@ function CreationInput(){
         setExpanded(false);
     }
 
+    const [title, setTitle] = useState('');
+    const [note, setNote] = useState('');
+    let tempPackage = {thisTitle: title, thisNote: note}
+
+    function inputHandler(tempData){
+        console.log(tempData)
+        setTitle(tempData.sourceTitle);
+        setNote(tempData.sourceNote);
+    }
+
+    const [closeCard, setCloseCard] = useState(false);
+    function closeCardHandler(){
+        console.log('closing!');
+        setCloseCard(true);
+        setExpanded(false);
+        setCloseCard(false);
+    }
+
+
+
     // backdrop z-index = 2
 
     return(
@@ -24,8 +45,8 @@ function CreationInput(){
                 <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></span>
             </div>}
                 
-                {expanded && <CreationCard />}
-                {expanded && <Backdrop onCollapse={collapseHandler} />}
+                {(expanded && !closeCard) && <CreationCard onExpand={inputHandler}  tempData={tempPackage} onESC={closeCardHandler} />}
+                {(expanded && !closeCard) && <Backdrop onCollapse={collapseHandler} />}
         
         </div>
     );
