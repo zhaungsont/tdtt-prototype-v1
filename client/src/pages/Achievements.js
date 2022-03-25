@@ -7,7 +7,7 @@ function Achievements(){
         <div>
             <Sidebar />
             <MainContent>
-                <h1>Achievements</h1>
+                <h1 className={classes.rainbowTextAnimated}>Achievements</h1>
                 
                 {/* https://tenor.com/view/rainbow-meme-mlg-frog-pepe-gif-17213585 */}
                 <h2 className={classes.rainbowTextAnimated}>
