@@ -6,6 +6,7 @@ import Schedule from "./pages/Schedule";
 import Analysis from "./pages/Analysis";
 import Achievements from "./pages/Achievements";
 import Settings from "./pages/Settings";
+import Login from "./pages/Login";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/analysis" element={<Analysis />} />
         <Route path="/achievements" element={<Achievements />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
