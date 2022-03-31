@@ -3,6 +3,10 @@ import { useState, useRef, useEffect } from "react";
 import Backdrop from "./Backdrop";
 import { func } from "prop-types";
 
+import moment from 'moment';
+
+import DatePicker from './DatePicker';
+
 // import DatePicker from "react-datepicker";
 
 // import "react-datepicker/dist/react-datepicker.css";
@@ -25,6 +29,8 @@ function CreationCard(props){
     //     }, [isEditing]);
     // }
 
+
+  
     let tempPackage = {sourceTitle: props.tempData.thisTitle, sourceNote: props.tempData.thisNote};
 
     const [ESD, setESD] = useState(false);
@@ -86,14 +92,29 @@ function CreationCard(props){
         // but to let React handle the data & redirect
     }
 
-    const [startDate, setStartDate] = useState(new Date()); // unfinished!
-
     // 在創建方塊開啟時偵測 ESC 按鍵，並回傳功能到 CreationInput 頁面做關閉
     function handleKeyPress(event){
         if(event.key === 'Escape'){
             console.log('ESC Detected! ');
             props.onESC();
           }
+    }
+
+    // Handles Moment objects containing start dates & end dates from react-dates.
+    function handleDateSelect(event){
+        let std = null;
+        let ed = null;
+        if (event.std != null) {
+            std = event.std.toDate();
+        }
+        if (event.ed != null) {
+            ed = event.ed.toDate();
+        }
+        
+        console.log(ed);
+        console.log(std);
+        // setESD(std);
+        // setEED(ed);
     }
 
     return(
@@ -107,29 +128,9 @@ function CreationCard(props){
                 <textarea onChange={handleNoteChange} value={props.tempData.thisNote} onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
                 
                 <div className={classes.container}>
-                    {ESD && <div>
-                        <label htmlFor="esd">Estimated Start Date: </label>
-                        <input type="date" id="esd" name="esd" className={classes.properties}></input>
-                    </div>}
-                    <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
 
-                    {EED && <div>
-                        <label htmlFor="eed">Estimated End Date: </label>
-                        <input type="date" id="eed" name="eed" className={classes.properties}></input>
-                    </div>}
-                    <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
 
-                    {EST && <div>
-                        <label htmlFor="est">Estimated Start Time:</label>
-                        <input type="time" id="est" name="est" className={classes.properties}></input>
-                    </div>}
-                    <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
-
-                    {EET && <div>
-                        <label htmlFor="eet">Estimated End Time:</label>
-                        <input type="time" id="eet" name="eet" className={classes.properties}></input>
-                    </div>}
-                    <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
+                    <DatePicker onUpdate={handleDateSelect} />                 
 
                     {category && <div>
                     <label for="category">Category</label>
@@ -172,4 +173,41 @@ https://www.npmjs.com/package/react-datepicker
 React Handle KeyDown Events with <div>
 https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
 
+React Dates by AirBNB
+https://www.npmjs.com/package/react-dates
+
+
+
 */
+
+
+
+
+
+
+
+
+  // {ESD && <div>
+    //     <label htmlFor="esd">Estimated Start Date: </label>
+    //     <input type="date" id="esd" name="esd" className={classes.properties}></input>
+    // </div>}
+    // <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
+
+    // {EED && <div>
+    //     <label htmlFor="eed">Estimated End Date: </label>
+    //     <input type="date" id="eed" name="eed" className={classes.properties}></input>
+    // </div>}
+    // <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
+
+    // {EST && <div>
+    //     <label htmlFor="est">Estimated Start Time:</label>
+    //     <input type="time" id="est" name="est" className={classes.properties}></input>
+    // </div>}
+    // <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
+
+    // {EET && <div>
+    //     <label htmlFor="eet">Estimated End Time:</label>
+    //     <input type="time" id="eet" name="eet" className={classes.properties}></input>
+    // </div>}
+    // <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
+

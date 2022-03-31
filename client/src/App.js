@@ -8,6 +8,8 @@ import Achievements from "./pages/Achievements";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 
+import './components/react_dates_overrides.css';
+
 
 function App() {
   return (

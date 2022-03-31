@@ -41,7 +41,6 @@ function Home(){
             <Sidebar />
 
             <MainContent>
-                <Example />
                 <Dashboard />
                 <TaskList />
             </MainContent>
