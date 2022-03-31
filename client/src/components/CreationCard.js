@@ -101,7 +101,8 @@ function CreationCard(props){
             <form  onSubmit={submitHandler}>
 
                 <input onChange={handleTitleChange} value={props.tempData.thisTitle} onClick={closeAllProperties} className={classes.title} name="title" autoFocus placeholder="Title"></input>
-                <a href="https://youtu.be/dQw4w9WgXcQ"><img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></a>
+                <button className={classes.trackButton}><img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></button>
+                
                 
                 <textarea onChange={handleNoteChange} value={props.tempData.thisNote} onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
                 
