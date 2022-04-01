@@ -176,7 +176,8 @@ https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs
 React Dates by AirBNB
 https://www.npmjs.com/package/react-dates
 
-
+Moment to JS Date Object: toDate()
+https://momentjs.com/docs/#/displaying/as-javascript-date/
 
 */
 
