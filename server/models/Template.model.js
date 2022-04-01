@@ -2,17 +2,15 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const exerciseSchema = new Schema({
-    userID: { type: Integer, required: true },
-    userName: { type: String, required: true },
-    account: { type: String, required: true },
-    password: { type: String, required: true },
-    status: { type: Integer, required: true }
-    
+const templateSchema = new Schema({
+    templateID: { type: Number, required: true },
+    name: { type: String, required: true },
+    taskList: { type: String, required: true },
+    takeTime: { type: String, required: true }
   }, {
     timestamps: true,
   });
 
-const User = mongoose.model('Template', userSchema);
+const User = mongoose.model('Template', templateSchema);
 
 module.exports = Template;

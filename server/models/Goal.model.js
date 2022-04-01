@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const exerciseSchema = new Schema({
+const goalSchema = new Schema({
     goalID: { type: Number, required: true },
     title: { type: String, required: true },
     cotent: { type: String, required: true },
@@ -15,6 +15,6 @@ const exerciseSchema = new Schema({
     timestamps: true,
   });
 
-const User = mongoose.model('Goal', userSchema);
+const User = mongoose.model('Goal', goalSchema);
 
 module.exports = Goal;

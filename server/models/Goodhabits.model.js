@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //欄位等頁面出來再確定
-const exerciseSchema = new Schema({
+const goodhabitsSchema = new Schema({
     habitID: { type: Number, required: true },
     habitName: { type: String, required: true },
     continueDay: { type: Number, required: true }
@@ -12,6 +12,6 @@ const exerciseSchema = new Schema({
     timestamps: true,
   });
 
-const User = mongoose.model('Goodhabits', userSchema);
+const User = mongoose.model('Goodhabits', goodhabitsSchema);
 
 module.exports = Goodhabits;

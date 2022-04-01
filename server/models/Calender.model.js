@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const exerciseSchema = new Schema({
+const calenderSchema = new Schema({
     taskId: { type: Number, required: true },
     year: { type: Number, required: true },
     month: { type: Number, required: true },
@@ -15,6 +15,6 @@ const exerciseSchema = new Schema({
     timestamps: true,
   });
 
-const User = mongoose.model('Calender', userSchema);
+const User = mongoose.model('Calender', calenderSchema);
 
 module.exports = Calender;
