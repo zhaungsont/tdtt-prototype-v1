@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CreationCard from "./CreationCard";
 import Backdrop from "./Backdrop";
 import classes from "./CreationInput.module.css";
 import { data } from "./Pie";
+import moment from 'moment';
+
 
 function CreationInput(){
     
@@ -18,12 +20,21 @@ function CreationInput(){
 
     const [title, setTitle] = useState('');
     const [note, setNote] = useState('');
-    let tempPackage = {thisTitle: title, thisNote: note}
+    const [ESD, setESD] = useState(null);
+    const [EED, setEED] = useState(null);
+    const [EST, setEST] = useState(null);
+    const [EET, setEET] = useState(null);
+    let tempPackage = {thisTitle: title, thisNote: note, thisESD:ESD, thisEED:EED, thisEST: EST, thisEET: EET}
 
     function inputHandler(tempData){
         console.log(tempData)
         setTitle(tempData.sourceTitle);
         setNote(tempData.sourceNote);
+        setESD(tempData.sourceESD);
+        setEED(tempData.sourceEED);
+        setEST(tempData.sourceEST);
+        setEET(tempData.sourceEET);
+
     }
 
     const [closeCard, setCloseCard] = useState(false);
@@ -34,9 +45,18 @@ function CreationInput(){
         setCloseCard(false);
     }
 
+    // VALIDATE TIME INPUT
+    const [timeError, setTimeError] = useState(null);
+    useEffect(()=>{
+        if (EST != undefined && EET != undefined && moment(EST).isAfter(EET)){
+            console.log('start time is after end time!');
+            setTimeError('error')
+        } else {
+            setTimeError(null);
+        }
+    }, [expanded, ESD, EED, EST, EET]);
 
 
-    // backdrop z-index = 2
 
     return(
         <div>
@@ -45,7 +65,7 @@ function CreationInput(){
                 <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></span>
             </div>}
                 
-                {(expanded && !closeCard) && <CreationCard onExpand={inputHandler}  tempData={tempPackage} onESC={closeCardHandler} />}
+                {(expanded && !closeCard) && <CreationCard onExpand={inputHandler}  tempData={tempPackage} onESC={closeCardHandler} timeError={timeError} />}
                 {(expanded && !closeCard) && <Backdrop onCollapse={collapseHandler} />}
         
         </div>
@@ -53,3 +73,5 @@ function CreationInput(){
 }
 
 export default CreationInput;
+
+// backdrop z-index = 2

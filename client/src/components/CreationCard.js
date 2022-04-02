@@ -5,11 +5,17 @@ import { func } from "prop-types";
 
 import moment from 'moment';
 
-import DatePicker from './DatePicker';
+// import DatePicker from './DatePicker';
 
 // import DatePicker from "react-datepicker";
 
 // import "react-datepicker/dist/react-datepicker.css";
+
+import 'antd/dist/antd.css';
+import { TimePicker, ConfigProvider, DatePicker } from 'antd';
+
+const { RangePicker } = DatePicker;
+
 
 function CreationCard(props){
 
@@ -31,47 +37,14 @@ function CreationCard(props){
 
 
   
-    let tempPackage = {sourceTitle: props.tempData.thisTitle, sourceNote: props.tempData.thisNote};
-
-    const [ESD, setESD] = useState(false);
-    function openESD(){
-        closeAllProperties()
-        setESD(!ESD);
-    }
-
-    const [EED, setEED] = useState(false);
-    function openEED(){
-        closeAllProperties()
-        setEED(!EED);
-    }
-    const [EST, setEST] = useState(false);
-    function openEST(){
-        closeAllProperties()
-        setEST(!EST);
-    }
-    const [EET, setEET] = useState(false);
-    function openEET(){
-        closeAllProperties()
-        setEET(!EET);
-    }
-    const [category, setCategory] = useState(false);
-    function openCategory(){
-        closeAllProperties()
-        setCategory(!category);
-    }
-    function closeAllProperties(){
-        setESD(false);
-        setEED(false);
-        setEST(false);
-        setEET(false);
-        setCategory(false);
-    }
-    
-    function handleESDChange(event){
-        console.log(event.target.value); 
-        // PROBLEM: Form Date Selection Cannot be tracked by onChange events
-        // Need another way to implement this!!
-    }
+    let tempPackage = {
+        sourceTitle: props.tempData.thisTitle, 
+        sourceNote: props.tempData.thisNote, 
+        sourceESD: props.tempData.thisESD,
+        sourceEED: props.tempData.thisEED,
+        sourceEST: props.tempData.thisEST,
+        sourceEET: props.tempData.thisEET
+    };
 
     const [title, setTitle] = useState('');
     function handleTitleChange(event){
@@ -100,56 +73,69 @@ function CreationCard(props){
           }
     }
 
-    // Handles Moment objects containing start dates & end dates from react-dates.
-    function handleDateSelect(event){
-        let std = null;
-        let ed = null;
-        if (event.std != null) {
-            std = event.std.toDate();
-        }
-        if (event.ed != null) {
-            ed = event.ed.toDate();
-        }
-        
-        console.log(ed);
-        console.log(std);
-        // setESD(std);
-        // setEED(ed);
+    function handleESDChange(event){
+        tempPackage.sourceESD = event;
+        props.onExpand(tempPackage);
+        // console.log(event);
+    }
+
+    function handleEEDChange(event){
+        tempPackage.sourceEED = event;
+        props.onExpand(tempPackage);
+        // console.log(event);
+    }
+
+    function handleESTChange(event){
+        tempPackage.sourceEST = event;
+        props.onExpand(tempPackage);
+    }
+
+    function handleEETChange(event){
+        tempPackage.sourceEET = event;
+        props.onExpand(tempPackage);
     }
 
     return(
         <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
             <form  onSubmit={submitHandler}>
 
-                <input onChange={handleTitleChange} value={props.tempData.thisTitle} onClick={closeAllProperties} className={classes.title} name="title" autoFocus placeholder="Title"></input>
+                <input onChange={handleTitleChange} value={props.tempData.thisTitle} className={classes.title} name="title" autoFocus placeholder="Title"></input>
                 <button className={classes.trackButton}><img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></button>
                 
                 
-                <textarea onChange={handleNoteChange} value={props.tempData.thisNote} onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
+                <textarea onChange={handleNoteChange} value={props.tempData.thisNote} rows="4" name="description" placeholder="Note"></textarea>
                 
                 <div className={classes.container}>
 
+                <DatePicker 
+                    placeholder="Start Date"
+                    onChange={handleESDChange}
+                    value={props.tempData.thisESD}
+                />
 
-                    <DatePicker onUpdate={handleDateSelect} />                 
+                <DatePicker 
+                    placeholder="End Date"
+                    onChange={handleEEDChange}
+                    value={props.tempData.thisEED}
+                />
 
-                    {category && <div>
-                    <label for="category">Category</label>
-                    <select name="category" id="category">
-                        <option value="">(None)</option>
-                        <option value="Academic">Academic</option>
-                        <option value="Coding">Coding</option>
-                        <option value="Home">Home</option>
-                    </select>
-                    </div>}
-                    <img className={classes.icons} onClick={openCategory} src={require("../dummy-data/icons/category.png")}></img>
-
-
+                <TimePicker 
+                    format="HH:mm"
+                    onChange={handleESTChange}
+                    value={props.tempData.thisEST}
+                    placeholder="Start Time"
+                    status={props.timeError}
+                    // onOpenChange
+                />
+                <TimePicker 
+                    format="HH:mm"
+                    onChange={handleEETChange}
+                    value={props.tempData.thisEET}
+                    placeholder="End Time"
+                    status={props.timeError}
+                />
 
                 </div>
-                {(ESD||EED||EST||EET||category) ? null : <div className={classes.spacer}></div>}
-
-
-
             </form>
         </div>
     );

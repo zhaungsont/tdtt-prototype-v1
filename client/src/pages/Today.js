@@ -7,7 +7,10 @@ import { useEffect } from "react";
 // import jwt from "jsonwebtoken";
 import { useNavigate } from 'react-router-dom';
 
+
 const uri = 'http://localhost:3001/api/token';
+
+
 
 function Home(){
 
