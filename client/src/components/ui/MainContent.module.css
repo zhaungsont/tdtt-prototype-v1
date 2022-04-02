@@ -1,3 +1,4 @@
+@media screen and (min-width: 1024px) {
 .mc {
     margin-left: 350px; /* Same as the width of the sidebar */
     padding: 0px 10px;
@@ -5,3 +6,12 @@
     margin-top: 100px;
     margin-right: 100px;
   }
+}
+
+@media screen and (min-width: 768px) and (max-width:1200px){
+  .mc {
+    margin-left: 300px;
+    margin-right: 50px;
+    background-color: #ffffff
+  }
+}

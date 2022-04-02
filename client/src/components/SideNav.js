@@ -21,7 +21,7 @@ function SideNav(){
                 <Link to="/settings">Settings</Link>
             </li>
         </ul> */}
-                <Link to="/"><div className={classes.navcss}>Today</div></Link>
+                <Link to="/today"><div className={classes.navcss}>Today</div></Link>
                 <Link className={classes.hover} to="/schedule"><div className={classes.navcss}>Schedule</div></Link>
                 <Link className={classes.hover}  to="/analysis"><div className={classes.navcss}>Analysis</div></Link>
 

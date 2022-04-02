@@ -31,7 +31,7 @@ function Login(){
         
         if (data.user) {
             alert('logged in!');
-            navigate('/', { replace: true });
+            navigate('/today', { replace: true });
         } else {
             alert('plz check email or password!');
         }
