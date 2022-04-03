@@ -9,10 +9,13 @@ import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import Stack from "@mui/material/Stack";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+
 import TimePicker from "@mui/lab/TimePicker";
 import MobileTimePicker from "@mui/lab/MobileTimePicker";
 import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
+
 import DatePicker from "@mui/lab/DatePicker";
+import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import Input from '@mui/material/Input';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -56,7 +59,8 @@ function CreationCard(props){
         sourceESD: props.tempData.thisESD,
         sourceEED: props.tempData.thisEED,
         sourceEST: props.tempData.thisEST,
-        sourceEET: props.tempData.thisEET
+        sourceEET: props.tempData.thisEET,
+        sourceED: props.tempData.thisED
     };
 
     const [title, setTitle] = useState('');
@@ -110,15 +114,25 @@ function CreationCard(props){
         console.log('EST: ' + event);
     }
 
-    const [endTimeValue, setEndTimeValue] = useState(new Date());
-    function handleEETChange(event){
-        setEndTimeValue(event);
-        tempPackage.sourceEET = event;
-        props.onExpand(tempPackage);
-        console.log('EET: ' + event);
-    }
+    const [endTimeValue, setEndTimeValue] = useState(null);
+    function handleEETChange(duration){
 
-    console.log('Start Date: ' + props.tempData.thisESD);
+        // const hourDuration = Math.floor(duration/60);
+        // console.log('hour: ' + hourDuration);
+        // const minDuation = duration % 60;
+        // console.log('minute: ' + minDuation);
+        if (props.tempData.thisEST){
+            const addedTime = duration * 60000;
+            tempPackage.sourceEET = new Date(props.tempData.thisEST.getTime() + addedTime);
+            // console.log('RESULT: ' + tempPackage.sourceEET);
+    
+            setEndTimeValue(tempPackage.sourceEET);
+        }
+        
+        // tempPackage.sourceEET = event;
+        // props.onExpand(tempPackage);
+        // console.log('EET: ' + event);
+    }
 
     const [esdExpand, setEsdExpand] = useState(true);
     function esdExpandHandler(){
@@ -127,19 +141,13 @@ function CreationCard(props){
         }
     }
 
-    const [durError, setDurError] = useState(false);
     const [durValue, setDurValue] = useState('');
-    // function durationValidator(){
 
-    //     if (durValue != null && isNaN(durValue)){
-    //         console.log('noooooooo!!!');
-    //     }
-    // }
     function handleDurChange(event){
         if (!isNaN(event.target.value)){
-            console.log("it's in")
-            console.log(event.target.value)
+            const duration = Number(event.target.value);
             setDurValue(event.target.value);
+            handleEETChange(duration)
         } 
     }
 
@@ -148,16 +156,16 @@ function CreationCard(props){
             <form  onSubmit={submitHandler}>
 
                 <input onChange={handleTitleChange} value={props.tempData.thisTitle} className={classes.title} name="title" autoFocus placeholder="Title"></input>
-                <button className={classes.trackButton}><img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></button>
+                <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
                 
                 <textarea onChange={handleNoteChange} value={props.tempData.thisNote} rows="4" name="description" placeholder="Note"></textarea>
                 
                 <div className={classes.container}>
-
+                <div className={classes.spacer}></div>
                 
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                 
-                    <DatePicker
+                    <MobileDatePicker
                     label="Start Date"
                     value={props.tempData.thisESD}
                     minDate={new Date()}
@@ -172,7 +180,7 @@ function CreationCard(props){
                     // InputAdornmentProps={{ position: "start" }}
                     />
 
-                    <DatePicker
+                    <MobileDatePicker
                     label="End Date"
                     value={props.tempData.thisEED}
                     minDate={new Date()}
@@ -185,7 +193,7 @@ function CreationCard(props){
                             size="small"
                         />} 
                     />
-                    <TimePicker
+                    <MobileTimePicker
                     label="Start Time"
                     minutesStep={5}
                     value={props.tempData.thisEST}
@@ -198,11 +206,20 @@ function CreationCard(props){
                             size="small"
                         />} 
                     />
-                    <TimePicker
+                    <TextField 
+                        label="Duration in Mintues" 
+                        color="primary" 
+                        size="small"
+                        // onBlur={durationValidator}
+                        onChange={handleDurChange}
+                        value={durValue}
+                    />
+                    <MobileTimePicker
+                    disabled={true}
                     label="End Time"
                     minutesStep={5}
-                    value={props.tempData.thisEET}
-                    onChange={handleEETChange}
+                    value={endTimeValue}
+                    onChange={()=>{}}
                     renderInput={(params) => 
                         <TextField 
                             {...params} 
@@ -213,15 +230,7 @@ function CreationCard(props){
                     />
                 </LocalizationProvider>
 
-                    <TextField 
-                        label="duration" 
-                        color="primary" 
-                        size="small"
-                        // onBlur={durationValidator}
-                        onChange={handleDurChange}
-                        error={durError}
-                        value={durValue}
-                    />
+                    
 
                 </div>
             </form>

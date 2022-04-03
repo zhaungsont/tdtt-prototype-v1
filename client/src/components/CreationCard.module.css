@@ -23,6 +23,7 @@ input.title{
     left: 28px;
     width: 2em;
     vertical-align: middle; 
+    cursor: pointer;
 }
 
 textarea {
@@ -42,7 +43,7 @@ textarea {
 
 
 .spacer{
-    flex-grow: 4;
+    flex-grow: 10;
 }
 
 label {

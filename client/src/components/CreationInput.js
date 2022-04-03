@@ -24,7 +24,8 @@ function CreationInput(){
     const [EED, setEED] = useState(null);
     const [EST, setEST] = useState(null);
     const [EET, setEET] = useState(null);
-    let tempPackage = {thisTitle: title, thisNote: note, thisESD:ESD, thisEED:EED, thisEST: EST, thisEET: EET}
+    const [ED, setED] = useState('');
+    let tempPackage = {thisTitle: title, thisNote: note, thisESD:ESD, thisEED:EED, thisEST: EST, thisEET: EET, thisED: ED}
 
     function inputHandler(tempData){
         console.log(tempData)
