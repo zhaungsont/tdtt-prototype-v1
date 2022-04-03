@@ -14,8 +14,12 @@ import MobileTimePicker from "@mui/lab/MobileTimePicker";
 import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
 import DatePicker from "@mui/lab/DatePicker";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import Input from '@mui/material/Input';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
 
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+
 
 // const { RangePicker } = DatePicker;
 
@@ -122,6 +126,23 @@ function CreationCard(props){
             console.log('esd is null');
         }
     }
+
+    const [durError, setDurError] = useState(false);
+    const [durValue, setDurValue] = useState('');
+    // function durationValidator(){
+
+    //     if (durValue != null && isNaN(durValue)){
+    //         console.log('noooooooo!!!');
+    //     }
+    // }
+    function handleDurChange(event){
+        if (!isNaN(event.target.value)){
+            console.log("it's in")
+            console.log(event.target.value)
+            setDurValue(event.target.value);
+        } 
+    }
+
     return(
         <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
             <form  onSubmit={submitHandler}>
@@ -191,6 +212,17 @@ function CreationCard(props){
                         />}                    
                     />
                 </LocalizationProvider>
+
+                    <TextField 
+                        label="duration" 
+                        color="primary" 
+                        size="small"
+                        // onBlur={durationValidator}
+                        onChange={handleDurChange}
+                        error={durError}
+                        value={durValue}
+                    />
+
                 </div>
             </form>
         </div>
