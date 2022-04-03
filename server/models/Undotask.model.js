@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const exerciseSchema = new Schema({
-    userID: { type: Integer, required: true },
-    userName: { type: String, required: true },
-    account: { type: String, required: true },
-    password: { type: String, required: true },
-    status: { type: Integer, required: true }
+const undotaskSchema = new Schema({
+  undoTaskId: { type: Number, required: true },
+  taskID: { type: Number, required: true },
+  expirationDate: { type: Date, required: true },
+  expireTime: { type: Number, required: true },
+  status: { type: Number, required: true }
     
   }, {
     timestamps: true,
   });
 
-const User = mongoose.model('Undotask', userSchema);
+const User = mongoose.model('Undotask', undotaskSchema);
 
 module.exports = Undotask;

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const exerciseSchema = new Schema({
+const reviewSchema = new Schema({
     reviewID: { type: Number, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
@@ -15,6 +15,6 @@ const exerciseSchema = new Schema({
     timestamps: true,
   });
 
-const User = mongoose.model('Review', userSchema);
+const User = mongoose.model('Review', reviewSchema);
 
 module.exports = Review;
