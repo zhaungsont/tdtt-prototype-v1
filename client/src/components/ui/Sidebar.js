@@ -21,7 +21,7 @@ function Sidebar(){
 
     return (
         <div className={classes.sidebar}>
-            <h2 className={classes.username}>炫風雞腿堡</h2>
+            <h2 className={classes.username}>Michael Chuang</h2>
             {counter < 20 ? <img onClick={addCount} className={classes.pfp} src={require("../../dummy-data/icons/user.png")}></img> 
             : <img onClick={resetCount} className={classes.pfp} src={require("../../dummy-data/icons/rr.png")}></img>}
             {/* <h1>{counter}</h1> */}
