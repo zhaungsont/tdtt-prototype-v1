@@ -65,15 +65,15 @@ function CreationCard(props){
 
     const [title, setTitle] = useState('');
     function handleTitleChange(event){
-        // setTitle(event.target.value);
+        setTitle(event.target.value);
         tempPackage.sourceTitle = event.target.value;
-        props.onExpand(tempPackage);
+        // props.onExpand(tempPackage);
     }
     const [note, setNote] = useState('');
     function handleNoteChange(event){
-        // setNote(event.target.value);
+        setNote(event.target.value);
         tempPackage.sourceNote = event.target.value
-        props.onExpand(tempPackage);
+        // props.onExpand(tempPackage);
     }
 
     function submitHandler(event){
@@ -92,27 +92,35 @@ function CreationCard(props){
 
     const [startDateValue, setSartDateValue] = useState(new Date());
     function handleESDChange(event){
+        event.setHours(0);
+        event.setMinutes(0);
+        event.setSeconds(0);
         setSartDateValue(event);
         tempPackage.sourceESD = event;
-        props.onExpand(tempPackage);
-        console.log('ESD: ' + event);
+        // props.onExpand(tempPackage);
+        console.log('startDateValue: ' + event);
     }
     
     const [endDateValue, setEndDateValue] = useState(new Date());
     function handleEEDChange(event){
+        event.setHours(23);
+        event.setMinutes(59);
+        event.setSeconds(59);
         setEndDateValue(event);
         tempPackage.sourceEED = event;
-        props.onExpand(tempPackage);
-        console.log('EED: ' + event);
+        // props.onExpand(tempPackage);
+        console.log('endDateValue: ' + event);
     }
     
-    const [startTimeValue, setStartTimeValue] = useState(new Date());
+    const [startTimeValue, setStartTimeValue] = useState(null);
     function handleESTChange(event){
         setStartTimeValue(event);
         tempPackage.sourceEST = event;
-        props.onExpand(tempPackage);
-        console.log('EST: ' + event);
-    }
+        // props.onExpand(tempPackage);
+        console.log('startTimeValue: ' + event);
+
+        handleEETChange(durValue);
+    }   
 
     const [endTimeValue, setEndTimeValue] = useState(null);
     function handleEETChange(duration){
@@ -121,25 +129,18 @@ function CreationCard(props){
         // console.log('hour: ' + hourDuration);
         // const minDuation = duration % 60;
         // console.log('minute: ' + minDuation);
-        if (props.tempData.thisEST){
+        if (startTimeValue){
             const addedTime = duration * 60000;
-            tempPackage.sourceEET = new Date(props.tempData.thisEST.getTime() + addedTime);
-            // console.log('RESULT: ' + tempPackage.sourceEET);
-    
+            tempPackage.sourceEET = new Date(startTimeValue.getTime() + addedTime);
             setEndTimeValue(tempPackage.sourceEET);
         }
         
         // tempPackage.sourceEET = event;
         // props.onExpand(tempPackage);
-        // console.log('EET: ' + event);
+        // console.log('endTimeValue: ' + event);
     }
 
-    const [esdExpand, setEsdExpand] = useState(true);
-    function esdExpandHandler(){
-        if (props.tempData.thisESD == null){
-            console.log('esd is null');
-        }
-    }
+
 
     const [durValue, setDurValue] = useState('');
 
@@ -151,14 +152,53 @@ function CreationCard(props){
         } 
     }
 
+    
+    const [dateError, setDateError] = useState(false);
+    const [timeError, setTimeError] = useState(false);
+    useEffect(()=>{
+
+        // DATE Validation
+        if (startDateValue == endDateValue){
+            // do nothing.
+            // this field prevents the two same dates being deemed invalid by js
+        } else if (startDateValue != null && endDateValue != null && startDateValue > endDateValue){
+            console.log('ERROR! Start Date is later than End Date!');
+            setDateError(true)
+        } else {
+            setDateError(false);
+        }
+
+
+        // TIME Validation
+        if (startDateValue == endDateValue) {
+            // the start date and the end date are the same
+            // this could either mean:
+            // 1. the user has no start or end date
+            // 2. the user set start and end date on the same day
+            // either way, we NEED TO VALIDATE the TIME
+            if (startTimeValue != null && endTimeValue != null && startTimeValue > endTimeValue){
+                // the user has input both starting & ending time
+                // the starting time is LATER than ending time
+                console.log('ERROR! Start Time is later than End Time!');
+                setTimeError(true);
+            } else {
+                // the user either has only start time or end time,
+                // or the start time is earlier than end time.
+                // either way, this is valid.
+                setTimeError(false);
+            }
+        }
+    
+    }, [startDateValue, endDateValue, startTimeValue, endTimeValue]);
+
     return(
         <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
             <form  onSubmit={submitHandler}>
 
-                <input onChange={handleTitleChange} value={props.tempData.thisTitle} className={classes.title} name="title" autoFocus placeholder="Title"></input>
+                <input onChange={handleTitleChange} value={title} className={classes.title} name="title" autoFocus placeholder="Title"></input>
                 <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
                 
-                <textarea onChange={handleNoteChange} value={props.tempData.thisNote} rows="4" name="description" placeholder="Note"></textarea>
+                <textarea onChange={handleNoteChange} value={note} rows="4" name="description" placeholder="Note"></textarea>
                 
                 <div className={classes.container}>
                 <div className={classes.spacer}></div>
@@ -167,7 +207,7 @@ function CreationCard(props){
                 
                     <MobileDatePicker
                     label="Start Date"
-                    value={props.tempData.thisESD}
+                    value={startDateValue}
                     minDate={new Date()}
                     onChange={handleESDChange}
                     renderInput={(params) => 
@@ -182,27 +222,27 @@ function CreationCard(props){
 
                     <MobileDatePicker
                     label="End Date"
-                    value={props.tempData.thisEED}
+                    value={endDateValue}
                     minDate={new Date()}
                     onChange={handleEEDChange}
                     renderInput={(params) => 
                         <TextField 
                             {...params} 
-                            error={props.dateError}
-                            helperText={props.dateError && "Invalid Format"}
+                            error={dateError}
+                            helperText={dateError && "Invalid Format"}
                             size="small"
                         />} 
                     />
                     <MobileTimePicker
                     label="Start Time"
                     minutesStep={5}
-                    value={props.tempData.thisEST}
+                    value={startTimeValue}
                     onChange={handleESTChange}
                     renderInput={(params) => 
                         <TextField 
                             {...params} 
-                            error={props.timeError}
-                            helperText={props.timeError && "Invalid Format"}
+                            error={timeError}
+                            helperText={timeError && "Invalid Format"}
                             size="small"
                         />} 
                     />
@@ -223,8 +263,8 @@ function CreationCard(props){
                     renderInput={(params) => 
                         <TextField 
                             {...params} 
-                            error={props.timeError}
-                            helperText={props.timeError && "Invalid Format"}
+                            error={timeError}
+                            helperText={timeError && "Invalid Format"}
                             size="small"
                         />}                    
                     />
@@ -275,25 +315,25 @@ https://stackoverflow.com/questions/71168362/unable-to-display-helper-text-in-mu
 
 
 
-// {ESD && <div>
+// {startDateValue && <div>
 //     <label htmlFor="esd">Estimated Start Date: </label>
 //     <input type="date" id="esd" name="esd" className={classes.properties}></input>
 // </div>}
 // <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
 
-// {EED && <div>
+// {endDateValue && <div>
 //     <label htmlFor="eed">Estimated End Date: </label>
 //     <input type="date" id="eed" name="eed" className={classes.properties}></input>
 // </div>}
 // <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
 
-// {EST && <div>
+// {startTimeValue && <div>
 //     <label htmlFor="est">Estimated Start Time:</label>
 //     <input type="time" id="est" name="est" className={classes.properties}></input>
 // </div>}
 // <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
 
-// {EET && <div>
+// {endTimeValue && <div>
 //     <label htmlFor="eet">Estimated End Time:</label>
 //     <input type="time" id="eet" name="eet" className={classes.properties}></input>
 // </div>}
