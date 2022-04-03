@@ -15,7 +15,7 @@ import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
 import DatePicker from "@mui/lab/DatePicker";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 // const { RangePicker } = DatePicker;
 
@@ -114,6 +114,14 @@ function CreationCard(props){
         console.log('EET: ' + event);
     }
 
+    console.log('Start Date: ' + props.tempData.thisESD);
+
+    const [esdExpand, setEsdExpand] = useState(true);
+    function esdExpandHandler(){
+        if (props.tempData.thisESD == null){
+            console.log('esd is null');
+        }
+    }
     return(
         <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
             <form  onSubmit={submitHandler}>
@@ -122,41 +130,67 @@ function CreationCard(props){
                 <button className={classes.trackButton}><img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></button>
                 
                 <textarea onChange={handleNoteChange} value={props.tempData.thisNote} rows="4" name="description" placeholder="Note"></textarea>
-                <AccessAlarmIcon />
+                
+                <div className={classes.container}>
 
+                
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
+                
                     <DatePicker
                     label="Start Date"
                     value={props.tempData.thisESD}
                     minDate={new Date()}
                     onChange={handleESDChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => 
+                        <TextField 
+                            {...params} 
+                            error={props.dateError}
+                            helperText={props.dateError && "Invalid Format"}
+                            size="small"
+                        />} 
+                    // InputAdornmentProps={{ position: "start" }}
                     />
+
                     <DatePicker
                     label="End Date"
                     value={props.tempData.thisEED}
                     minDate={new Date()}
                     onChange={handleEEDChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => 
+                        <TextField 
+                            {...params} 
+                            error={props.dateError}
+                            helperText={props.dateError && "Invalid Format"}
+                            size="small"
+                        />} 
                     />
                     <TimePicker
                     label="Start Time"
+                    minutesStep={5}
                     value={props.tempData.thisEST}
                     onChange={handleESTChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => 
+                        <TextField 
+                            {...params} 
+                            error={props.timeError}
+                            helperText={props.timeError && "Invalid Format"}
+                            size="small"
+                        />} 
                     />
                     <TimePicker
                     label="End Time"
+                    minutesStep={5}
                     value={props.tempData.thisEET}
                     onChange={handleEETChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => 
+                        <TextField 
+                            {...params} 
+                            error={props.timeError}
+                            helperText={props.timeError && "Invalid Format"}
+                            size="small"
+                        />}                    
                     />
                 </LocalizationProvider>
-                
-                <div className={classes.container}>
-
-         
-
                 </div>
             </form>
         </div>
@@ -186,6 +220,10 @@ https://www.npmjs.com/package/react-dates
 
 Moment to JS Date Object: toDate()
 https://momentjs.com/docs/#/displaying/as-javascript-date/
+
+MUI TextField params
+https://stackoverflow.com/questions/71168362/unable-to-display-helper-text-in-mui-date-picker-when-using-along-with-react-hoo
+
 
 */
 

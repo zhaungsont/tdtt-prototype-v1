@@ -39,10 +39,10 @@ textarea {
     justify-content: flex-end;
 }
 
-div.spacer{
-    font-size: 0; 
-    height: 28px;
-    line-height: 0;
+
+
+.spacer{
+    flex-grow: 4;
 }
 
 label {
