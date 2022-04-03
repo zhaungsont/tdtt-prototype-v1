@@ -2,15 +2,31 @@ import classes from "./CreationCard.module.css";
 import { useState, useRef, useEffect } from "react";
 import Backdrop from "./Backdrop";
 import { func } from "prop-types";
+// import moment from 'moment';
 
-import moment from 'moment';
+// MUI
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import Stack from "@mui/material/Stack";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import TimePicker from "@mui/lab/TimePicker";
+import MobileTimePicker from "@mui/lab/MobileTimePicker";
+import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
+import DatePicker from "@mui/lab/DatePicker";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 
-
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 
 // const { RangePicker } = DatePicker;
 
 
 function CreationCard(props){
+
+    // MUI
+    // const [timeValue, setTimeValue] = useState<Date | null>(
+    //     new Date("2018-01-01T00:00:00.000Z")
+    //   );
+    // const [dateValue, setDateValue] = useState<Date | null>(null);
 
     // https://stackoverflow.com/questions/53314857/how-to-focus-something-on-next-render-with-react-hooks
     // const EditableField = () => {
@@ -66,26 +82,36 @@ function CreationCard(props){
           }
     }
 
+    const [startDateValue, setSartDateValue] = useState(new Date());
     function handleESDChange(event){
+        setSartDateValue(event);
         tempPackage.sourceESD = event;
         props.onExpand(tempPackage);
-        // console.log(event);
+        console.log('ESD: ' + event);
     }
-
+    
+    const [endDateValue, setEndDateValue] = useState(new Date());
     function handleEEDChange(event){
+        setEndDateValue(event);
         tempPackage.sourceEED = event;
         props.onExpand(tempPackage);
-        // console.log(event);
+        console.log('EED: ' + event);
     }
-
+    
+    const [startTimeValue, setStartTimeValue] = useState(new Date());
     function handleESTChange(event){
+        setStartTimeValue(event);
         tempPackage.sourceEST = event;
         props.onExpand(tempPackage);
+        console.log('EST: ' + event);
     }
 
+    const [endTimeValue, setEndTimeValue] = useState(new Date());
     function handleEETChange(event){
+        setEndTimeValue(event);
         tempPackage.sourceEET = event;
         props.onExpand(tempPackage);
+        console.log('EET: ' + event);
     }
 
     return(
@@ -95,8 +121,37 @@ function CreationCard(props){
                 <input onChange={handleTitleChange} value={props.tempData.thisTitle} className={classes.title} name="title" autoFocus placeholder="Title"></input>
                 <button className={classes.trackButton}><img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></button>
                 
-                
                 <textarea onChange={handleNoteChange} value={props.tempData.thisNote} rows="4" name="description" placeholder="Note"></textarea>
+                <AccessAlarmIcon />
+
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                    label="Start Date"
+                    value={props.tempData.thisESD}
+                    minDate={new Date()}
+                    onChange={handleESDChange}
+                    renderInput={(params) => <TextField {...params} />}
+                    />
+                    <DatePicker
+                    label="End Date"
+                    value={props.tempData.thisEED}
+                    minDate={new Date()}
+                    onChange={handleEEDChange}
+                    renderInput={(params) => <TextField {...params} />}
+                    />
+                    <TimePicker
+                    label="Start Time"
+                    value={props.tempData.thisEST}
+                    onChange={handleESTChange}
+                    renderInput={(params) => <TextField {...params} />}
+                    />
+                    <TimePicker
+                    label="End Time"
+                    value={props.tempData.thisEET}
+                    onChange={handleEETChange}
+                    renderInput={(params) => <TextField {...params} />}
+                    />
+                </LocalizationProvider>
                 
                 <div className={classes.container}>
 
