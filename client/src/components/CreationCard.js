@@ -5,16 +5,9 @@ import { func } from "prop-types";
 
 import moment from 'moment';
 
-// import DatePicker from './DatePicker';
 
-// import DatePicker from "react-datepicker";
 
-// import "react-datepicker/dist/react-datepicker.css";
-
-import 'antd/dist/antd.css';
-import { TimePicker, ConfigProvider, DatePicker } from 'antd';
-
-const { RangePicker } = DatePicker;
+// const { RangePicker } = DatePicker;
 
 
 function CreationCard(props){
@@ -107,33 +100,7 @@ function CreationCard(props){
                 
                 <div className={classes.container}>
 
-                <DatePicker 
-                    placeholder="Start Date"
-                    onChange={handleESDChange}
-                    value={props.tempData.thisESD}
-                />
-
-                <DatePicker 
-                    placeholder="End Date"
-                    onChange={handleEEDChange}
-                    value={props.tempData.thisEED}
-                />
-
-                <TimePicker 
-                    format="HH:mm"
-                    onChange={handleESTChange}
-                    value={props.tempData.thisEST}
-                    placeholder="Start Time"
-                    status={props.timeError}
-                    // onOpenChange
-                />
-                <TimePicker 
-                    format="HH:mm"
-                    onChange={handleEETChange}
-                    value={props.tempData.thisEET}
-                    placeholder="End Time"
-                    status={props.timeError}
-                />
+         
 
                 </div>
             </form>
@@ -174,27 +141,72 @@ https://momentjs.com/docs/#/displaying/as-javascript-date/
 
 
 
-  // {ESD && <div>
-    //     <label htmlFor="esd">Estimated Start Date: </label>
-    //     <input type="date" id="esd" name="esd" className={classes.properties}></input>
-    // </div>}
-    // <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
+// {ESD && <div>
+//     <label htmlFor="esd">Estimated Start Date: </label>
+//     <input type="date" id="esd" name="esd" className={classes.properties}></input>
+// </div>}
+// <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
 
-    // {EED && <div>
-    //     <label htmlFor="eed">Estimated End Date: </label>
-    //     <input type="date" id="eed" name="eed" className={classes.properties}></input>
-    // </div>}
-    // <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
+// {EED && <div>
+//     <label htmlFor="eed">Estimated End Date: </label>
+//     <input type="date" id="eed" name="eed" className={classes.properties}></input>
+// </div>}
+// <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
 
-    // {EST && <div>
-    //     <label htmlFor="est">Estimated Start Time:</label>
-    //     <input type="time" id="est" name="est" className={classes.properties}></input>
-    // </div>}
-    // <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
+// {EST && <div>
+//     <label htmlFor="est">Estimated Start Time:</label>
+//     <input type="time" id="est" name="est" className={classes.properties}></input>
+// </div>}
+// <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
 
-    // {EET && <div>
-    //     <label htmlFor="eet">Estimated End Time:</label>
-    //     <input type="time" id="eet" name="eet" className={classes.properties}></input>
-    // </div>}
-    // <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
+// {EET && <div>
+//     <label htmlFor="eet">Estimated End Time:</label>
+//     <input type="time" id="eet" name="eet" className={classes.properties}></input>
+// </div>}
+// <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
 
+
+
+
+
+/* OTHER ATTEMPTS AT FINDING SUITABLE UI LIBRARIES
+// import DatePicker from './DatePicker';
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+// import 'antd/dist/antd.css';
+// import { TimePicker, ConfigProvider, DatePicker } from 'antd';
+
+
+Ant Design
+
+<DatePicker 
+            placeholder="Start Date"
+            onChange={handleESDChange}
+            value={props.tempData.thisESD}
+        />
+
+        <DatePicker 
+            placeholder="End Date"
+            onChange={handleEEDChange}
+            value={props.tempData.thisEED}
+        />
+
+        <TimePicker 
+            format="HH:mm"
+            onChange={handleESTChange}
+            value={props.tempData.thisEST}
+            placeholder="Start Time"
+            status={props.timeError}
+            // onOpenChange
+        />
+        <TimePicker 
+            format="HH:mm"
+            onChange={handleEETChange}
+            value={props.tempData.thisEET}
+            placeholder="End Time"
+            status={props.timeError}
+        />
+
+
+
+*/
