@@ -2,12 +2,38 @@ import classes from "./CreationCard.module.css";
 import { useState, useRef, useEffect } from "react";
 import Backdrop from "./Backdrop";
 import { func } from "prop-types";
+// import moment from 'moment';
 
-// import DatePicker from "react-datepicker";
+// MUI
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import Stack from "@mui/material/Stack";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
-// import "react-datepicker/dist/react-datepicker.css";
+import TimePicker from "@mui/lab/TimePicker";
+import MobileTimePicker from "@mui/lab/MobileTimePicker";
+import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
+
+import DatePicker from "@mui/lab/DatePicker";
+import MobileDatePicker from '@mui/lab/MobileDatePicker';
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import Input from '@mui/material/Input';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+
+
+// const { RangePicker } = DatePicker;
+
 
 function CreationCard(props){
+
+    // MUI
+    // const [timeValue, setTimeValue] = useState<Date | null>(
+    //     new Date("2018-01-01T00:00:00.000Z")
+    //   );
+    // const [dateValue, setDateValue] = useState<Date | null>(null);
 
     // https://stackoverflow.com/questions/53314857/how-to-focus-something-on-next-render-with-react-hooks
     // const EditableField = () => {
@@ -25,59 +51,29 @@ function CreationCard(props){
     //     }, [isEditing]);
     // }
 
-    let tempPackage = {sourceTitle: props.tempData.thisTitle, sourceNote: props.tempData.thisNote};
 
-    const [ESD, setESD] = useState(false);
-    function openESD(){
-        closeAllProperties()
-        setESD(!ESD);
-    }
-
-    const [EED, setEED] = useState(false);
-    function openEED(){
-        closeAllProperties()
-        setEED(!EED);
-    }
-    const [EST, setEST] = useState(false);
-    function openEST(){
-        closeAllProperties()
-        setEST(!EST);
-    }
-    const [EET, setEET] = useState(false);
-    function openEET(){
-        closeAllProperties()
-        setEET(!EET);
-    }
-    const [category, setCategory] = useState(false);
-    function openCategory(){
-        closeAllProperties()
-        setCategory(!category);
-    }
-    function closeAllProperties(){
-        setESD(false);
-        setEED(false);
-        setEST(false);
-        setEET(false);
-        setCategory(false);
-    }
-    
-    function handleESDChange(event){
-        console.log(event.target.value); 
-        // PROBLEM: Form Date Selection Cannot be tracked by onChange events
-        // Need another way to implement this!!
-    }
+  
+    let tempPackage = {
+        sourceTitle: props.tempData.thisTitle, 
+        sourceNote: props.tempData.thisNote, 
+        sourceESD: props.tempData.thisESD,
+        sourceEED: props.tempData.thisEED,
+        sourceEST: props.tempData.thisEST,
+        sourceEET: props.tempData.thisEET,
+        sourceED: props.tempData.thisED
+    };
 
     const [title, setTitle] = useState('');
     function handleTitleChange(event){
-        // setTitle(event.target.value);
+        setTitle(event.target.value);
         tempPackage.sourceTitle = event.target.value;
-        props.onExpand(tempPackage);
+        // props.onExpand(tempPackage);
     }
     const [note, setNote] = useState('');
     function handleNoteChange(event){
-        // setNote(event.target.value);
+        setNote(event.target.value);
         tempPackage.sourceNote = event.target.value
-        props.onExpand(tempPackage);
+        // props.onExpand(tempPackage);
     }
 
     function submitHandler(event){
@@ -85,8 +81,6 @@ function CreationCard(props){
         // Prevent Default from behavior of jumping out of page
         // but to let React handle the data & redirect
     }
-
-    const [startDate, setStartDate] = useState(new Date()); // unfinished!
 
     // 在創建方塊開啟時偵測 ESC 按鍵，並回傳功能到 CreationInput 頁面做關閉
     function handleKeyPress(event){
@@ -96,58 +90,189 @@ function CreationCard(props){
           }
     }
 
+    const [startDateValue, setSartDateValue] = useState(new Date());
+    function handleESDChange(event){
+        event.setHours(0);
+        event.setMinutes(0);
+        event.setSeconds(0);
+        setSartDateValue(event);
+        tempPackage.sourceESD = event;
+        // props.onExpand(tempPackage);
+        console.log('startDateValue: ' + event);
+    }
+    
+    const [endDateValue, setEndDateValue] = useState(new Date());
+    function handleEEDChange(event){
+        event.setHours(23);
+        event.setMinutes(59);
+        event.setSeconds(59);
+        setEndDateValue(event);
+        tempPackage.sourceEED = event;
+        // props.onExpand(tempPackage);
+        console.log('endDateValue: ' + event);
+    }
+    
+    const [startTimeValue, setStartTimeValue] = useState(null);
+    function handleESTChange(event){
+        setStartTimeValue(event);
+        tempPackage.sourceEST = event;
+        // props.onExpand(tempPackage);
+        console.log('startTimeValue: ' + event);
+
+        handleEETChange(durValue);
+    }   
+
+    const [endTimeValue, setEndTimeValue] = useState(null);
+    function handleEETChange(duration){
+
+        // const hourDuration = Math.floor(duration/60);
+        // console.log('hour: ' + hourDuration);
+        // const minDuation = duration % 60;
+        // console.log('minute: ' + minDuation);
+        if (startTimeValue){
+            const addedTime = duration * 60000;
+            tempPackage.sourceEET = new Date(startTimeValue.getTime() + addedTime);
+            setEndTimeValue(tempPackage.sourceEET);
+        }
+        
+        // tempPackage.sourceEET = event;
+        // props.onExpand(tempPackage);
+        // console.log('endTimeValue: ' + event);
+    }
+
+
+
+    const [durValue, setDurValue] = useState('');
+
+    function handleDurChange(event){
+        if (!isNaN(event.target.value)){
+            const duration = Number(event.target.value);
+            setDurValue(event.target.value);
+            handleEETChange(duration)
+        } 
+    }
+
+    
+    const [dateError, setDateError] = useState(false);
+    const [timeError, setTimeError] = useState(false);
+    useEffect(()=>{
+
+        // DATE Validation
+        if (startDateValue == endDateValue){
+            // do nothing.
+            // this field prevents the two same dates being deemed invalid by js
+        } else if (startDateValue != null && endDateValue != null && startDateValue > endDateValue){
+            console.log('ERROR! Start Date is later than End Date!');
+            setDateError(true)
+        } else {
+            setDateError(false);
+        }
+
+
+        // TIME Validation
+        if (startDateValue == endDateValue) {
+            // the start date and the end date are the same
+            // this could either mean:
+            // 1. the user has no start or end date
+            // 2. the user set start and end date on the same day
+            // either way, we NEED TO VALIDATE the TIME
+            if (startTimeValue != null && endTimeValue != null && startTimeValue > endTimeValue){
+                // the user has input both starting & ending time
+                // the starting time is LATER than ending time
+                console.log('ERROR! Start Time is later than End Time!');
+                setTimeError(true);
+            } else {
+                // the user either has only start time or end time,
+                // or the start time is earlier than end time.
+                // either way, this is valid.
+                setTimeError(false);
+            }
+        }
+    
+    }, [startDateValue, endDateValue, startTimeValue, endTimeValue]);
+
     return(
         <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
             <form  onSubmit={submitHandler}>
 
-                <input onChange={handleTitleChange} value={props.tempData.thisTitle} onClick={closeAllProperties} className={classes.title} name="title" autoFocus placeholder="Title"></input>
-                <a href="https://youtu.be/dQw4w9WgXcQ"><img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img></a>
+                <input onChange={handleTitleChange} value={title} className={classes.title} name="title" autoFocus placeholder="Title"></input>
+                <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
                 
-                <textarea onChange={handleNoteChange} value={props.tempData.thisNote} onClick={closeAllProperties} rows="4" name="description" placeholder="Note"></textarea>
+                <textarea onChange={handleNoteChange} value={note} rows="4" name="description" placeholder="Note"></textarea>
                 
                 <div className={classes.container}>
-                    {ESD && <div>
-                        <label htmlFor="esd">Estimated Start Date: </label>
-                        <input type="date" id="esd" name="esd" className={classes.properties}></input>
-                    </div>}
-                    <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
+                <div className={classes.spacer}></div>
+                
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                
+                    <MobileDatePicker
+                    label="Start Date"
+                    value={startDateValue}
+                    minDate={new Date()}
+                    onChange={handleESDChange}
+                    renderInput={(params) => 
+                        <TextField 
+                            {...params} 
+                            error={props.dateError}
+                            helperText={props.dateError && "Invalid Format"}
+                            size="small"
+                        />} 
+                    // InputAdornmentProps={{ position: "start" }}
+                    />
 
-                    {EED && <div>
-                        <label htmlFor="eed">Estimated End Date: </label>
-                        <input type="date" id="eed" name="eed" className={classes.properties}></input>
-                    </div>}
-                    <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
+                    <MobileDatePicker
+                    label="End Date"
+                    value={endDateValue}
+                    minDate={new Date()}
+                    onChange={handleEEDChange}
+                    renderInput={(params) => 
+                        <TextField 
+                            {...params} 
+                            error={dateError}
+                            helperText={dateError && "Invalid Format"}
+                            size="small"
+                        />} 
+                    />
+                    <MobileTimePicker
+                    label="Start Time"
+                    minutesStep={5}
+                    value={startTimeValue}
+                    onChange={handleESTChange}
+                    renderInput={(params) => 
+                        <TextField 
+                            {...params} 
+                            error={timeError}
+                            helperText={timeError && "Invalid Format"}
+                            size="small"
+                        />} 
+                    />
+                    <TextField 
+                        label="Duration in Mintues" 
+                        color="primary" 
+                        size="small"
+                        // onBlur={durationValidator}
+                        onChange={handleDurChange}
+                        value={durValue}
+                    />
+                    <MobileTimePicker
+                    disabled={true}
+                    label="End Time"
+                    minutesStep={5}
+                    value={endTimeValue}
+                    onChange={()=>{}}
+                    renderInput={(params) => 
+                        <TextField 
+                            {...params} 
+                            error={timeError}
+                            helperText={timeError && "Invalid Format"}
+                            size="small"
+                        />}                    
+                    />
+                </LocalizationProvider>
 
-                    {EST && <div>
-                        <label htmlFor="est">Estimated Start Time:</label>
-                        <input type="time" id="est" name="est" className={classes.properties}></input>
-                    </div>}
-                    <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
-
-                    {EET && <div>
-                        <label htmlFor="eet">Estimated End Time:</label>
-                        <input type="time" id="eet" name="eet" className={classes.properties}></input>
-                    </div>}
-                    <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
-
-                    {category && <div>
-                    <label for="category">Category</label>
-                    <select name="category" id="category">
-                        <option value="">(None)</option>
-                        <option value="Academic">Academic</option>
-                        <option value="Coding">Coding</option>
-                        <option value="Home">Home</option>
-                    </select>
-                    </div>}
-                    <img className={classes.icons} onClick={openCategory} src={require("../dummy-data/icons/category.png")}></img>
-
-
+                    
 
                 </div>
-                {(ESD||EED||EST||EET||category) ? null : <div className={classes.spacer}></div>}
-
-
-
             </form>
         </div>
     );
@@ -170,5 +295,92 @@ https://www.npmjs.com/package/react-datepicker
 
 React Handle KeyDown Events with <div>
 https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs-in-react
+
+React Dates by AirBNB
+https://www.npmjs.com/package/react-dates
+
+Moment to JS Date Object: toDate()
+https://momentjs.com/docs/#/displaying/as-javascript-date/
+
+MUI TextField params
+https://stackoverflow.com/questions/71168362/unable-to-display-helper-text-in-mui-date-picker-when-using-along-with-react-hoo
+
+
+*/
+
+
+
+
+
+
+
+
+// {startDateValue && <div>
+//     <label htmlFor="esd">Estimated Start Date: </label>
+//     <input type="date" id="esd" name="esd" className={classes.properties}></input>
+// </div>}
+// <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
+
+// {endDateValue && <div>
+//     <label htmlFor="eed">Estimated End Date: </label>
+//     <input type="date" id="eed" name="eed" className={classes.properties}></input>
+// </div>}
+// <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
+
+// {startTimeValue && <div>
+//     <label htmlFor="est">Estimated Start Time:</label>
+//     <input type="time" id="est" name="est" className={classes.properties}></input>
+// </div>}
+// <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
+
+// {endTimeValue && <div>
+//     <label htmlFor="eet">Estimated End Time:</label>
+//     <input type="time" id="eet" name="eet" className={classes.properties}></input>
+// </div>}
+// <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
+
+
+
+
+
+/* OTHER ATTEMPTS AT FINDING SUITABLE UI LIBRARIES
+// import DatePicker from './DatePicker';
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+// import 'antd/dist/antd.css';
+// import { TimePicker, ConfigProvider, DatePicker } from 'antd';
+
+
+Ant Design
+
+<DatePicker 
+            placeholder="Start Date"
+            onChange={handleESDChange}
+            value={props.tempData.thisESD}
+        />
+
+        <DatePicker 
+            placeholder="End Date"
+            onChange={handleEEDChange}
+            value={props.tempData.thisEED}
+        />
+
+        <TimePicker 
+            format="HH:mm"
+            onChange={handleESTChange}
+            value={props.tempData.thisEST}
+            placeholder="Start Time"
+            status={props.timeError}
+            // onOpenChange
+        />
+        <TimePicker 
+            format="HH:mm"
+            onChange={handleEETChange}
+            value={props.tempData.thisEET}
+            placeholder="End Time"
+            status={props.timeError}
+        />
+
+
 
 */
