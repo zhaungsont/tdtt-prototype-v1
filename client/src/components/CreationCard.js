@@ -38,7 +38,21 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 // const { RangePicker } = DatePicker;
 
 
+
 function CreationCard(props){
+
+    const dummyCat = [
+        {
+            key: 0,
+            val: 'Study Python',
+            catName: 'Study Python'
+        },
+        {
+            key: 1,
+            val: 'Buy PS5',
+            catName: 'Buy PS5'
+        }
+    ];
 
     // MUI
     // const [timeValue, setTimeValue] = useState<Date | null>(
@@ -209,36 +223,32 @@ function CreationCard(props){
     
     }, [startDateValue, endDateValue, startTimeValue, endTimeValue]);
 
-    const [age, setAge] = useState('');
+    const [currentCat, setCurrentCat] = useState('');
+    const [newCatExpand, setNewCatExpand] = useState(false)
 
-    const handleChange = (event) => {
-      setAge(event.target.value);
+    const handleCatSelectChange = (event) => {
+        setCurrentCat(event.target.value);
+        if (event.target.value == "New Category..."){
+            console.log('fire new cat!');
+            setNewCatExpand(true);
+        } else {
+            console.log('no fire! collapse!');
+            setNewCatExpand(false);
+        }
     };
 
-    const dummyCat = [
-        {
-            key: 0,
-            val: 'Study Python',
-            catName: 'Study Python'
-        },
-        {
-            key: 1,
-            val: 'Buy PS5',
-            catName: 'Buy PS5'
+    const [newCatValue, setNewCatValue] = useState('');
+    function newCatInputHandler(event){
+        const val = event.target.value
+        setNewCatValue(val);
+    }
+
+    function cancelNewCatHandler(){
+        if (!newCatValue) {
+
+            setCurrentCat('');
+            setNewCatExpand(false);
         }
-    ];
-
-    const names = [
-        'Oliver Hansen',
-        'Van Henry',
-        'April Tucker',
-        'Ralph Hubbard',
-    ]
-
-    const [newCat, setNewCat] = useState(false)
-    function newCatHandler(){
-        console.log('meow')
-        setNewCat(true)
     }
 
     return(
@@ -249,16 +259,8 @@ function CreationCard(props){
                 <div className={classes.spacer}></div>
                 <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
                 </div>
-                
-                {/* <PlayCircleIcon fontSize='large' color="primary" className={classes.stbutton}/> */}
-                
-                {/* <span>
-                <input onChange={handleTitleChange} value={title} className={classes.title} name="title" autoFocus placeholder="Title"></input>
-                <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
-                </span> */}
 
                 <textarea onChange={handleNoteChange} value={note} rows="4" name="description" placeholder="Note"></textarea>
-
 
                 <div className={classes.container}>
                 <div className={classes.spacer}></div>
@@ -336,13 +338,14 @@ function CreationCard(props){
                         />}                    
                     />
 
-                    <FormControl size='small' variant="outlined" sx={{ minWidth: 120 }}>
+                    {/* CATEGORY SELECT */}
+                    {!newCatExpand && <FormControl size='small' variant="outlined" sx={{ minWidth: 160 }}>
                         <InputLabel id="demo-simple-select-standard-label">Category</InputLabel>
                         <Select
                         labelId="demo-simple-select-standard-label"
                         id="demo-simple-select-standard"
-                        value={age}
-                        onChange={handleChange}
+                        value={currentCat}
+                        onChange={handleCatSelectChange}
                         label="Category"
                         >
 
@@ -353,17 +356,20 @@ function CreationCard(props){
                         {dummyCat.map((cat)=>(
                             <MenuItem key={cat.key} value={cat.val}>{cat.catName}</MenuItem>
                         ))}
-                        <MenuItem onClick={newCatHandler}>New Category...</MenuItem>
+                        <MenuItem value="New Category..."><span style={{color: 'grey'}}>New Category...</span></MenuItem>
                         </Select>
-                    </FormControl>
+                    </FormControl>}
                     
-                    
-                    {newCat && <TextField
+                    {/* CATEGORY INPUT */}
+                    {newCatExpand && <TextField
+                    focused
                     size="small"
-                    id="outlined-helperText"
-                    label="Helper text"
-                    defaultValue="Default Value"
+                    label={newCatValue ? "New Category: " + newCatValue : "Create New Category"}
                     // helperText="Some important text"
+                    value={newCatValue}
+                    onChange={newCatInputHandler}
+                    type="search"
+                    onBlur={cancelNewCatHandler}
                     />}
                 </LocalizationProvider>
 
