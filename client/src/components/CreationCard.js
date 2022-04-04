@@ -198,7 +198,7 @@ function CreationCard(props){
         <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
             <form  onSubmit={submitHandler}>
                 <div className={classes.titleButtonContainer}>
-                <input onChange={handleTitleChange} value={title} className={classes.title} name="title" autoFocus placeholder="Title"></input>
+                <input onChange={handleTitleChange} value={title} className={classes.title} name="title" autoFocus placeholder="Press esc to cancel..."></input>
                 <div className={classes.spacer}></div>
                 <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
                 </div>

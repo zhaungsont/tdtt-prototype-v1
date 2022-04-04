@@ -17,6 +17,10 @@ input.title{
     line-height: 3em;
 }
 
+input.title[placeholder]{
+    font-style: italic;
+}
+
 .stbutton{
     margin-right: 0.5em;
     width: 2em;
