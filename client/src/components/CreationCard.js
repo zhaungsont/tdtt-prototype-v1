@@ -23,6 +23,9 @@ import InputLabel from '@mui/material/InputLabel';
 
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 // const { RangePicker } = DatePicker;
 
@@ -194,12 +197,22 @@ function CreationCard(props){
     return(
         <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
             <form  onSubmit={submitHandler}>
-
+                <div className={classes.titleButtonContainer}>
+                <input onChange={handleTitleChange} value={title} className={classes.title} name="title" autoFocus placeholder="Title"></input>
+                <div className={classes.spacer}></div>
+                <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
+                </div>
+                
+                {/* <PlayCircleIcon fontSize='large' color="primary" className={classes.stbutton}/> */}
+                
+                {/* <span>
                 <input onChange={handleTitleChange} value={title} className={classes.title} name="title" autoFocus placeholder="Title"></input>
                 <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
-                
+                </span> */}
+
                 <textarea onChange={handleNoteChange} value={note} rows="4" name="description" placeholder="Note"></textarea>
-                
+
+
                 <div className={classes.container}>
                 <div className={classes.spacer}></div>
                 

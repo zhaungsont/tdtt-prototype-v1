@@ -18,12 +18,15 @@ input.title{
 }
 
 .stbutton{
-    position: relative;
-    top: 5px;
-    left: 28px;
+    margin-right: 0.5em;
     width: 2em;
-    vertical-align: middle; 
+    height: 2em;
     cursor: pointer;
+/* 
+    position: relative;
+    left: calc(100% - 5em - 100px);
+    width: 2em;
+    vertical-align: middle;  */
 }
 
 textarea {
@@ -33,6 +36,11 @@ textarea {
     border: none;
     outline: none;
     margin-left: 0.5em;
+}
+
+.titleButtonContainer {
+    display: flex;
+    align-items: center;
 }
 
 .container {
