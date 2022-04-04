@@ -53,6 +53,18 @@ function CreationCard(props){
             catName: 'Buy PS5'
         }
     ];
+    const dummyLoc = [
+        {
+            key: 0,
+            val: 'Louisa',
+            catName: 'Louisa'
+        },
+        {
+            key: 1,
+            val: 'Taipei',
+            catName: 'Taipei'
+        }
+    ];
 
     // MUI
     // const [timeValue, setTimeValue] = useState<Date | null>(
@@ -251,6 +263,34 @@ function CreationCard(props){
         }
     }
 
+    const [currentLoc, setCurrentLoc] = useState('');
+    const [newLocExpand, setNewLocExpand] = useState(false)
+
+    const handleLocSelectChange = (event) => {
+        setCurrentLoc(event.target.value);
+        if (event.target.value == "New Location..."){
+            console.log('fire new Loc!');
+            setNewLocExpand(true);
+        } else {
+            console.log('no fire! collapse!');
+            setNewLocExpand(false);
+        }
+    };
+
+    const [newLocValue, setNewLocValue] = useState('');
+    function newLocInputHandler(event){
+        const val = event.target.value
+        setNewLocValue(val);
+    }
+
+    function cancelNewLocHandler(){
+        if (!newLocValue) {
+
+            setCurrentLoc('');
+            setNewLocExpand(false);
+        }
+    }
+
     return(
         <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
             <form  onSubmit={submitHandler}>
@@ -345,10 +385,8 @@ function CreationCard(props){
 
                     {/* CATEGORY SELECT */}
                     {!newCatExpand && <FormControl size='small' variant="outlined" sx={{ minWidth: 115 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Category</InputLabel>
+                        <InputLabel>Category</InputLabel>
                         <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
                         value={currentCat}
                         onChange={handleCatSelectChange}
                         label="Category"
@@ -376,6 +414,40 @@ function CreationCard(props){
                     onChange={newCatInputHandler}
                     type="search"
                     onBlur={cancelNewCatHandler}
+                    sx={{ maxWidth: 115 }}
+                    />}
+
+                    {/* LOCATION SELECT */}
+                    {!newLocExpand && <FormControl size='small' variant="outlined" sx={{ minWidth: 115 }}>
+                        <InputLabel>Location</InputLabel>
+                        <Select
+                        value={currentLoc}
+                        onChange={handleLocSelectChange}
+                        label="Location"
+                        autoWidth
+                        >
+
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        
+                        {dummyLoc.map((loc)=>(
+                            <MenuItem key={loc.key} value={loc.val}>{loc.catName}</MenuItem>
+                        ))}
+                        <MenuItem value="New Location..."><span style={{color: 'grey'}}>New Location...</span></MenuItem>
+                        </Select>
+                    </FormControl>}
+                    
+                    {/* LOCATION INPUT */}
+                    {newLocExpand && <TextField
+                    focused
+                    size="small"
+                    label={"New Location"}
+                    // helperText="Some important text"
+                    value={newLocValue}
+                    onChange={newLocInputHandler}
+                    type="search"
+                    onBlur={cancelNewLocHandler}
                     sx={{ maxWidth: 115 }}
                     />}
                 </LocalizationProvider>
