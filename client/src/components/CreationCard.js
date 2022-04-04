@@ -278,6 +278,7 @@ function CreationCard(props){
                             error={props.dateError}
                             helperText={props.dateError && "Invalid Format"}
                             size="small"
+                            sx={{ maxWidth: 115 }}
                         />} 
                     // InputAdornmentProps={{ position: "start" }}
                     />
@@ -293,6 +294,7 @@ function CreationCard(props){
                             error={dateError}
                             helperText={dateError && "Invalid Format"}
                             size="small"
+                            sx={{ maxWidth: 115 }}
                         />} 
                     />
 
@@ -308,17 +310,19 @@ function CreationCard(props){
                             error={timeError}
                             helperText={timeError && "Invalid Format"}
                             size="small"
+                            sx={{ maxWidth: 115 }}
                         />} 
                     />
 
                     {/* DURATION */}
                     <TextField 
-                        label="Duration in Mintues" 
+                        label="Duration in Mins" 
                         color="primary" 
                         size="small"
                         // onBlur={durationValidator}
                         onChange={handleDurChange}
                         value={durValue}
+                        sx={{ maxWidth: 115 }}
                     />
                     
                     {/* END TIME */}
@@ -335,11 +339,12 @@ function CreationCard(props){
                             error={timeError}
                             helperText={timeError && "Invalid Format"}
                             size="small"
+                            sx={{ maxWidth: 115 }}
                         />}                    
                     />
 
                     {/* CATEGORY SELECT */}
-                    {!newCatExpand && <FormControl size='small' variant="outlined" sx={{ minWidth: 160 }}>
+                    {!newCatExpand && <FormControl size='small' variant="outlined" sx={{ minWidth: 115 }}>
                         <InputLabel id="demo-simple-select-standard-label">Category</InputLabel>
                         <Select
                         labelId="demo-simple-select-standard-label"
@@ -347,6 +352,7 @@ function CreationCard(props){
                         value={currentCat}
                         onChange={handleCatSelectChange}
                         label="Category"
+                        autoWidth
                         >
 
                         <MenuItem value="">
@@ -364,12 +370,13 @@ function CreationCard(props){
                     {newCatExpand && <TextField
                     focused
                     size="small"
-                    label={newCatValue ? "New Category: " + newCatValue : "Create New Category"}
+                    label={"New Category"}
                     // helperText="Some important text"
                     value={newCatValue}
                     onChange={newCatInputHandler}
                     type="search"
                     onBlur={cancelNewCatHandler}
+                    sx={{ maxWidth: 115 }}
                     />}
                 </LocalizationProvider>
 
