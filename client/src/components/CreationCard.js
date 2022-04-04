@@ -27,13 +27,8 @@ import FormControl from '@mui/material/FormControl';
 import FilledInput from '@mui/material/FilledInput';
 import FormHelperText from '@mui/material/FormHelperText';
 
-
-
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+
 
 // const { RangePicker } = DatePicker;
 
@@ -65,29 +60,6 @@ function CreationCard(props){
             catName: 'Taipei'
         }
     ];
-
-    // MUI
-    // const [timeValue, setTimeValue] = useState<Date | null>(
-    //     new Date("2018-01-01T00:00:00.000Z")
-    //   );
-    // const [dateValue, setDateValue] = useState<Date | null>(null);
-
-    // https://stackoverflow.com/questions/53314857/how-to-focus-something-on-next-render-with-react-hooks
-    // const EditableField = () => {
-    //     const [isEditing, setEditing] = useState(false);
-    //     const toggleEditing = () => {
-    //       setEditing(!isEditing);
-    //     };
-      
-    //     const inputRef = useRef(null);
-      
-    //     useEffect(() => {
-    //       if (isEditing) {
-    //         inputRef.current.focus();
-    //       }
-    //     }, [isEditing]);
-    // }
-
 
   
     let tempPackage = {
@@ -480,88 +452,6 @@ https://stackoverflow.com/questions/43503964/onkeydown-event-not-working-on-divs
 
 React Dates by AirBNB
 https://www.npmjs.com/package/react-dates
-
-Moment to JS Date Object: toDate()
-https://momentjs.com/docs/#/displaying/as-javascript-date/
-
-MUI TextField params
-https://stackoverflow.com/questions/71168362/unable-to-display-helper-text-in-mui-date-picker-when-using-along-with-react-hoo
-
-
-*/
-
-
-
-
-
-
-
-
-// {startDateValue && <div>
-//     <label htmlFor="esd">Estimated Start Date: </label>
-//     <input type="date" id="esd" name="esd" className={classes.properties}></input>
-// </div>}
-// <img className={classes.icons} onClick={openESD} src={require("../dummy-data/icons/esd.png")}></img>
-
-// {endDateValue && <div>
-//     <label htmlFor="eed">Estimated End Date: </label>
-//     <input type="date" id="eed" name="eed" className={classes.properties}></input>
-// </div>}
-// <img className={classes.icons} onClick={openEED} src={require("../dummy-data/icons/asd.png")}></img>
-
-// {startTimeValue && <div>
-//     <label htmlFor="est">Estimated Start Time:</label>
-//     <input type="time" id="est" name="est" className={classes.properties}></input>
-// </div>}
-// <img className={classes.icons} onClick={openEST} src={require("../dummy-data/icons/est.png")}></img>
-
-// {endTimeValue && <div>
-//     <label htmlFor="eet">Estimated End Time:</label>
-//     <input type="time" id="eet" name="eet" className={classes.properties}></input>
-// </div>}
-// <img className={classes.icons} onClick={openEET} src={require("../dummy-data/icons/ast.png")}></img>
-
-
-
-
-
-/* OTHER ATTEMPTS AT FINDING SUITABLE UI LIBRARIES
-// import DatePicker from './DatePicker';
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-// import 'antd/dist/antd.css';
-// import { TimePicker, ConfigProvider, DatePicker } from 'antd';
-
-
-Ant Design
-
-<DatePicker 
-            placeholder="Start Date"
-            onChange={handleESDChange}
-            value={props.tempData.thisESD}
-        />
-
-        <DatePicker 
-            placeholder="End Date"
-            onChange={handleEEDChange}
-            value={props.tempData.thisEED}
-        />
-
-        <TimePicker 
-            format="HH:mm"
-            onChange={handleESTChange}
-            value={props.tempData.thisEST}
-            placeholder="Start Time"
-            status={props.timeError}
-            // onOpenChange
-        />
-        <TimePicker 
-            format="HH:mm"
-            onChange={handleEETChange}
-            value={props.tempData.thisEET}
-            placeholder="End Time"
-            status={props.timeError}
-        />
 
 
 

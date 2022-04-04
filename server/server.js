@@ -45,10 +45,10 @@ app.post('/api/login', async (req, res)=>{
         userName: user.userName,
         account: user.account
       }, 'secret123', {
-        expiresIn:20
+        expiresIn:60
       })
-
-    return res.json({status: 'ok', user: token})
+      return res.cookie('token', token, { httpOnly:true })
+    // return res.json({status: 'ok', user: token})
   } else {
     return res.json({status: 'error', user: false})
   }

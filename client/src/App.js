@@ -9,12 +9,12 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import RedirectPage from "./pages/RedirectPage";
 
-import './components/react_dates_overrides.css';
-
+// import { AuthContextProvider } from "./store/AuthContext";
 
 function App() {
   return (
     <div className="App">
+    {/* <AuthContextProvider> */}
       <Routes>
         <Route path='/' exact element={<RedirectPage />} /> 
         <Route path="/today" exact element={<Today />} />
@@ -24,6 +24,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+    {/* </AuthContextProvider> */}
     </div>
   );
 }
