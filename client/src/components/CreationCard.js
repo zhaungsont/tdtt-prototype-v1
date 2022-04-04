@@ -20,6 +20,14 @@ import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import Input from '@mui/material/Input';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import SelectUnstyled from '@mui/base/SelectUnstyled';
+import FormControl from '@mui/material/FormControl';
+import FilledInput from '@mui/material/FilledInput';
+import FormHelperText from '@mui/material/FormHelperText';
+
+
 
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
@@ -133,9 +141,12 @@ function CreationCard(props){
         // const minDuation = duration % 60;
         // console.log('minute: ' + minDuation);
         if (startTimeValue){
-            const addedTime = duration * 60000;
-            tempPackage.sourceEET = new Date(startTimeValue.getTime() + addedTime);
-            setEndTimeValue(tempPackage.sourceEET);
+            if (duration) {
+
+                const addedTime = duration * 60000;
+                tempPackage.sourceEET = new Date(startTimeValue.getTime() + addedTime);
+                setEndTimeValue(tempPackage.sourceEET);
+            }
         }
         
         // tempPackage.sourceEET = event;
@@ -148,7 +159,11 @@ function CreationCard(props){
     const [durValue, setDurValue] = useState('');
 
     function handleDurChange(event){
-        if (!isNaN(event.target.value)){
+
+        if (!event.target.value) {
+            setEndTimeValue(null);
+            setDurValue(event.target.value)
+        } else if (!isNaN(event.target.value)){
             const duration = Number(event.target.value);
             setDurValue(event.target.value);
             handleEETChange(duration)
@@ -194,6 +209,38 @@ function CreationCard(props){
     
     }, [startDateValue, endDateValue, startTimeValue, endTimeValue]);
 
+    const [age, setAge] = useState('');
+
+    const handleChange = (event) => {
+      setAge(event.target.value);
+    };
+
+    const dummyCat = [
+        {
+            key: 0,
+            val: 'Study Python',
+            catName: 'Study Python'
+        },
+        {
+            key: 1,
+            val: 'Buy PS5',
+            catName: 'Buy PS5'
+        }
+    ];
+
+    const names = [
+        'Oliver Hansen',
+        'Van Henry',
+        'April Tucker',
+        'Ralph Hubbard',
+    ]
+
+    const [newCat, setNewCat] = useState(false)
+    function newCatHandler(){
+        console.log('meow')
+        setNewCat(true)
+    }
+
     return(
         <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
             <form  onSubmit={submitHandler}>
@@ -217,7 +264,7 @@ function CreationCard(props){
                 <div className={classes.spacer}></div>
                 
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                
+
                     <MobileDatePicker
                     label="Start Date"
                     value={startDateValue}
@@ -232,7 +279,7 @@ function CreationCard(props){
                         />} 
                     // InputAdornmentProps={{ position: "start" }}
                     />
-
+                    
                     <MobileDatePicker
                     label="End Date"
                     value={endDateValue}
@@ -246,6 +293,8 @@ function CreationCard(props){
                             size="small"
                         />} 
                     />
+
+                    {/* START TIME */}
                     <MobileTimePicker
                     label="Start Time"
                     minutesStep={5}
@@ -259,6 +308,8 @@ function CreationCard(props){
                             size="small"
                         />} 
                     />
+
+                    {/* DURATION */}
                     <TextField 
                         label="Duration in Mintues" 
                         color="primary" 
@@ -267,7 +318,10 @@ function CreationCard(props){
                         onChange={handleDurChange}
                         value={durValue}
                     />
+                    
+                    {/* END TIME */}
                     <MobileTimePicker
+                    autoWidth={true}
                     disabled={true}
                     label="End Time"
                     minutesStep={5}
@@ -281,6 +335,36 @@ function CreationCard(props){
                             size="small"
                         />}                    
                     />
+
+                    <FormControl size='small' variant="outlined" sx={{ minWidth: 120 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Category</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={age}
+                        onChange={handleChange}
+                        label="Category"
+                        >
+
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        
+                        {dummyCat.map((cat)=>(
+                            <MenuItem key={cat.key} value={cat.val}>{cat.catName}</MenuItem>
+                        ))}
+                        <MenuItem onClick={newCatHandler}>New Category...</MenuItem>
+                        </Select>
+                    </FormControl>
+                    
+                    
+                    {newCat && <TextField
+                    size="small"
+                    id="outlined-helperText"
+                    label="Helper text"
+                    defaultValue="Default Value"
+                    // helperText="Some important text"
+                    />}
                 </LocalizationProvider>
 
                     
