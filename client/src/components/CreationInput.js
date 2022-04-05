@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import CreationCard from "./CreationCard";
 import Backdrop from "./Backdrop";
 import classes from "./CreationInput.module.css";
-import { data } from "./Pie";
-import moment from 'moment';
-
+import newTaskContext from "../store/NewTaskContext";
 
 function CreationInput(){
-    
+    const newTaskCTX = useContext(newTaskContext);
+
     const [expanded, setExpanded] = useState(false)
+    const [draftTask, setdraftTask] = useState();
+    const [dummyTaskList, setDummyTaskList] = useState([]);
 
     function expandHandler(){
         setExpanded(true);
@@ -16,18 +17,8 @@ function CreationInput(){
 
     function collapseHandler(){
         setExpanded(false);
+        console.log(dummyTaskList)
     }
-
-    const [draftTask, setdraftTask] = useState();
-
-    // const [title, setTitle] = useState('');
-    // const [note, setNote] = useState('');
-    // const [ESD, setESD] = useState(null);
-    // const [EED, setEED] = useState(null);
-    // const [EST, setEST] = useState(null);
-    // const [EET, setEET] = useState(null);
-    // const [ED, setED] = useState('');
-    // let tempPackage = {thisTitle: title, thisNote: note, thisESD:ESD, thisEED:EED, thisEST: EST, thisEET: EET, thisED: ED}
 
     function inputHandler(tempData){
         console.log(tempData)
@@ -42,9 +33,28 @@ function CreationInput(){
         setCloseCard(false);
     }
 
+    // Handles "Submit and Add to List", but Doesn't Time Track Now!
     function submitHandler(){
-        console.log('yy')
+        // check for invalid inputs: Empty Title or Invalid Date Spans.
+        const title = draftTask.sourceTitle.trim();
+        const invalidDate = draftTask.invalidDate;
+        if (!title || invalidDate){
+            console.log('invalid entry!!')
+        } else {
+            // New task created successfully!
+            // const dateCreated = new Date();
+            // setdraftTask((prevTask)=>{return {...prevTask, created: dateCreated}});
+            // setDummyTaskList((prevList)=>[...prevList, draftTask]);
+            
+            // setDummyTaskList((prev)=>{
+            //     return prev.concat(draftTask);
+            // })
+            console.log('ggg')
+            console.log(draftTask)
+            newTaskCTX.submitNewTask(draftTask);
+        }
     }
+
 
 
     return(

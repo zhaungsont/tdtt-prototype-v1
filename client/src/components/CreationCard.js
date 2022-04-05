@@ -1,5 +1,8 @@
 import classes from "./CreationCard.module.css";
-import { useState, useRef, useEffect } from "react";
+
+import newTaskContext from "../store/NewTaskContext";
+
+import { useState, useEffect, useContext } from "react";
 import Backdrop from "./Backdrop";
 import { func } from "prop-types";
 // import moment from 'moment';
@@ -41,7 +44,8 @@ let tempPackage = {
     sourceEET: null,
     sourceED: '',
     sourceCat: '',
-    sourceLoc: ''
+    sourceLoc: '',
+    invalidDate: null
 };
 
 const dummyCat = [
@@ -70,6 +74,8 @@ const dummyLoc = [
 ];
 
 function CreationCard(props){
+    const newTaskCTX = useContext(newTaskContext);
+
     const [titleValue, setTitle] = useState('');
     const [noteValue, setNote] = useState('');
     const [startDateValue, setSartDateValue] = useState(new Date());
@@ -125,8 +131,11 @@ function CreationCard(props){
         if (event.key === "Enter"){
             console.log('Entered!');
             props.onSubmitTask()
+            props.onESC();
         }
     }
+
+
     function handleESDChange(event){
         event.setHours(0);
         event.setMinutes(0);
@@ -190,8 +199,10 @@ function CreationCard(props){
         } else if (startDateValue != null && endDateValue != null && startDateValue > endDateValue){
             console.log('ERROR! Start Date is later than End Date!');
             setDateError(true)
+            tempPackage.invalidDate = true;
         } else {
             setDateError(false);
+            tempPackage.invalidDate = false;
         }
 
 

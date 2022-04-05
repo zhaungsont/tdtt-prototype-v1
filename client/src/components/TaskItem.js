@@ -36,8 +36,8 @@ function TaskItem(props){
             {props.esd && <img className={classes.icons} src={require("../dummy-data/icons/esd.png")}/> }
             {props.esd && <p className={classes.properties}>{props.esd} </p>}
 
-            {props.asd && <img className={classes.icons} src={require("../dummy-data/icons/asd.png")}/> }
-            {props.asd && <p className={classes.properties}>{props.asd} </p>}
+            {props.eed && <img className={classes.icons} src={require("../dummy-data/icons/asd.png")}/> }
+            {props.eed && <p className={classes.properties}>{props.eed} </p>}
 
             {props.est && <img className={classes.icons} src={require("../dummy-data/icons/est.png")}/> }
             {props.est && <p className={classes.properties}>{props.est} </p>}
@@ -53,7 +53,7 @@ function TaskItem(props){
         </div>
         {expanded && <div className={classes.expanded}>
             {/* expanded area */}
-            <p>Category: {props.category} | Status: {props.status} | Location: {props.location} | Actual Duration: {props.ad}</p>
+            <p>Category: {props.cat} | Status: {props.status ? props.status : 'unknown' } | Location: {props.loc} | Actual Duration: {props.ad}</p>
             <em>{props.note}</em>
         </div>}
     </div>
