@@ -294,7 +294,7 @@ function CreationCard(props){
                         />} 
                     // InputAdornmentProps={{ position: "start" }}
                     />
-                    
+                    <div className={classes.divider}></div>
                     <MobileDatePicker
                     label="End Date"
                     value={endDateValue}
@@ -309,6 +309,8 @@ function CreationCard(props){
                             sx={{ maxWidth: 115 }}
                         />} 
                     />
+                    
+                    <div className={classes.divider}></div>
 
                     {/* START TIME */}
                     <MobileTimePicker
@@ -326,6 +328,8 @@ function CreationCard(props){
                         />} 
                     />
 
+                    <div className={classes.divider}></div>
+
                     {/* DURATION */}
                     <TextField 
                         label="Duration in Mins" 
@@ -336,7 +340,9 @@ function CreationCard(props){
                         value={durValue}
                         sx={{ maxWidth: 115 }}
                     />
-                    
+
+                    <div className={classes.divider}></div>
+
                     {/* END TIME */}
                     <MobileTimePicker
                     autoWidth={true}
@@ -354,6 +360,8 @@ function CreationCard(props){
                             sx={{ maxWidth: 115 }}
                         />}                    
                     />
+
+                    <div className={classes.divider}></div>
 
                     {/* CATEGORY SELECT */}
                     {!newCatExpand && <FormControl size='small' variant="outlined" sx={{ minWidth: 115 }}>
@@ -378,7 +386,7 @@ function CreationCard(props){
                     
                     {/* CATEGORY INPUT */}
                     {newCatExpand && <TextField
-                    focused
+                    autoFocus
                     size="small"
                     label={"New Category"}
                     // helperText="Some important text"
@@ -388,6 +396,8 @@ function CreationCard(props){
                     onBlur={cancelNewCatHandler}
                     sx={{ maxWidth: 115 }}
                     />}
+
+                    <div className={classes.divider}></div>
 
                     {/* LOCATION SELECT */}
                     {!newLocExpand && <FormControl size='small' variant="outlined" sx={{ minWidth: 115 }}>
@@ -412,7 +422,7 @@ function CreationCard(props){
                     
                     {/* LOCATION INPUT */}
                     {newLocExpand && <TextField
-                    focused
+                    autoFocus
                     size="small"
                     label={"New Location"}
                     // helperText="Some important text"

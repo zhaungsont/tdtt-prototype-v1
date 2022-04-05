@@ -58,6 +58,10 @@ textarea {
     flex-grow: 10;
 }
 
+.divider{
+    flex-grow: 1;
+}
+
 label {
     font-size: 0.75em;
     display: block;
