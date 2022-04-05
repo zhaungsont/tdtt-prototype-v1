@@ -18,24 +18,20 @@ function CreationInput(){
         setExpanded(false);
     }
 
-    const [title, setTitle] = useState('');
-    const [note, setNote] = useState('');
-    const [ESD, setESD] = useState(null);
-    const [EED, setEED] = useState(null);
-    const [EST, setEST] = useState(null);
-    const [EET, setEET] = useState(null);
-    const [ED, setED] = useState('');
-    let tempPackage = {thisTitle: title, thisNote: note, thisESD:ESD, thisEED:EED, thisEST: EST, thisEET: EET, thisED: ED}
+    const [draftTask, setdraftTask] = useState();
+
+    // const [title, setTitle] = useState('');
+    // const [note, setNote] = useState('');
+    // const [ESD, setESD] = useState(null);
+    // const [EED, setEED] = useState(null);
+    // const [EST, setEST] = useState(null);
+    // const [EET, setEET] = useState(null);
+    // const [ED, setED] = useState('');
+    // let tempPackage = {thisTitle: title, thisNote: note, thisESD:ESD, thisEED:EED, thisEST: EST, thisEET: EET, thisED: ED}
 
     function inputHandler(tempData){
         console.log(tempData)
-        // setTitle(tempData.sourceTitle);
-        // setNote(tempData.sourceNote);
-        // setESD(tempData.sourceESD);
-        // setEED(tempData.sourceEED);
-        // setEST(tempData.sourceEST);
-        // setEET(tempData.sourceEET);
-        // setED(tempData.sourceED)
+        setdraftTask(tempData);
     }
 
     const [closeCard, setCloseCard] = useState(false);
@@ -60,9 +56,9 @@ function CreationInput(){
                 
                 {(expanded && !closeCard) && <CreationCard 
                     onUpdateCC={inputHandler}  
-                    tempData={tempPackage} 
+                    // tempData={tempPackage} 
                     onESC={closeCardHandler}
-                    onEnter={submitHandler}
+                    onSubmitTask={submitHandler}
                 />}
                 {(expanded && !closeCard) && <Backdrop onCollapse={collapseHandler} />}
         

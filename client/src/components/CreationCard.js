@@ -72,19 +72,24 @@ const dummyLoc = [
 
 
 function CreationCard(props){
-    const [title, setTitle] = useState('');
-    const [note, setNote] = useState('');
+    const [titleValue, setTitle] = useState('');
+    const [noteValue, setNote] = useState('');
     const [startDateValue, setSartDateValue] = useState(new Date());
     const [endDateValue, setEndDateValue] = useState(new Date());
     const [startTimeValue, setStartTimeValue] = useState(null);
     const [durValue, setDurValue] = useState('');
     const [endTimeValue, setEndTimeValue] = useState(null);
+    
+    const [currentCat, setCurrentCat] = useState('');
+    const [newCatValue, setNewCatValue] = useState('');
+    const [newCatExpand, setNewCatExpand] = useState(false)
+
+    const [currentLoc, setCurrentLoc] = useState('');
+    const [newLocValue, setNewLocValue] = useState('');
+    const [newLocExpand, setNewLocExpand] = useState(false)
+
     const [dateError, setDateError] = useState(false);
     const [timeError, setTimeError] = useState(false);
-    const [currentCat, setCurrentCat] = useState('');
-    const [newCatExpand, setNewCatExpand] = useState(false)
-    const [currentLoc, setCurrentLoc] = useState('');
-    const [newLocExpand, setNewLocExpand] = useState(false)
 
     function handleTitleChange(event){
         setTitle(event.target.value);
@@ -101,6 +106,14 @@ function CreationCard(props){
         event.preventDefault();
         // Prevent Default from behavior of jumping out of page
         // but to let React handle the data & redirect
+
+
+        // Here, we'll handle situation where user clicks on "track" button
+        // the tempPackage is already sent to CreationInput.js
+        // now we just bring the data (draftTask) along 
+        // and redirect user to /timetrack page.
+        // we'll handle timetrack logic & data transmission over there.
+        
     }
 
     // 在創建方塊開啟時偵測 ESC 按鍵，並回傳功能到 CreationInput 頁面做關閉
@@ -114,7 +127,7 @@ function CreationCard(props){
     function handleEnterPress(event){
         if (event.key === "Enter"){
             console.log('Entered!');
-            props.onEnter()
+            props.onSubmitTask()
         }
     }
 
@@ -179,7 +192,6 @@ function CreationCard(props){
         } 
     }
 
-
     useEffect(()=>{
         // DATE Validation
         if (startDateValue == endDateValue){
@@ -229,7 +241,6 @@ function CreationCard(props){
         }
     };
 
-    const [newCatValue, setNewCatValue] = useState('');
     function newCatInputHandler(event){
         const catName = event.target.value;
         const val = catName;
@@ -263,11 +274,10 @@ function CreationCard(props){
         }
     };
 
-    const [newLocValue, setNewLocValue] = useState('');
     function newLocInputHandler(event){
         const locName = event.target.value
         setNewLocValue(locName);
-        tempPackage.sourceCat = locName;
+        tempPackage.sourceLoc = locName;
         props.onUpdateCC(tempPackage);
     }
 
@@ -276,7 +286,7 @@ function CreationCard(props){
 
             setCurrentLoc('');
             setNewLocExpand(false);
-            tempPackage.sourceCat = '';
+            tempPackage.sourceLoc = '';
             props.onUpdateCC(tempPackage);      
         }
     }
@@ -285,12 +295,12 @@ function CreationCard(props){
         <div className={classes.card} onKeyDown={(event)=>{handleESCPress(event); handleEnterPress(event)}} tabIndex="0">
             <form  onSubmit={submitHandler}>
                 <div className={classes.titleButtonContainer}>
-                <input onChange={handleTitleChange} value={title} className={classes.title} name="title" autoFocus placeholder="Press esc to cancel..."></input>
+                <input onChange={handleTitleChange} value={titleValue} className={classes.title} name="title" autoFocus placeholder="Press esc to cancel..."></input>
                 <div className={classes.spacer}></div>
                 <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
                 </div>
 
-                <textarea onChange={handleNoteChange} value={note} rows="4" name="description" placeholder="Note"></textarea>
+                <textarea onChange={handleNoteChange} value={noteValue} rows="4" name="description" placeholder="Note"></textarea>
 
                 <div className={classes.container}>
                 <div className={classes.spacer}></div>
