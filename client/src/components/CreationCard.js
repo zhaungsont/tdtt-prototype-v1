@@ -32,57 +32,69 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 // const { RangePicker } = DatePicker;
 
+let tempPackage = {
+    sourceTitle: '', 
+    sourceNote: '', 
+    sourceESD: null,
+    sourceEED: null,
+    sourceEST: null,
+    sourceEET: null,
+    sourceED: '',
+    sourceCat: '',
+    sourceLoc: ''
+};
+
+
+const dummyCat = [
+    {
+        key: 0,
+        val: 'Study Python',
+        catName: 'Study Python'
+    },
+    {
+        key: 1,
+        val: 'Buy PS5',
+        catName: 'Buy PS5'
+    }
+];
+const dummyLoc = [
+    {
+        key: 0,
+        val: 'Louisa',
+        catName: 'Louisa'
+    },
+    {
+        key: 1,
+        val: 'Taipei',
+        catName: 'Taipei'
+    }
+];
 
 
 function CreationCard(props){
-
-    const dummyCat = [
-        {
-            key: 0,
-            val: 'Study Python',
-            catName: 'Study Python'
-        },
-        {
-            key: 1,
-            val: 'Buy PS5',
-            catName: 'Buy PS5'
-        }
-    ];
-    const dummyLoc = [
-        {
-            key: 0,
-            val: 'Louisa',
-            catName: 'Louisa'
-        },
-        {
-            key: 1,
-            val: 'Taipei',
-            catName: 'Taipei'
-        }
-    ];
-
-  
-    let tempPackage = {
-        sourceTitle: props.tempData.thisTitle, 
-        sourceNote: props.tempData.thisNote, 
-        sourceESD: props.tempData.thisESD,
-        sourceEED: props.tempData.thisEED,
-        sourceEST: props.tempData.thisEST,
-        sourceEET: props.tempData.thisEET,
-        sourceED: props.tempData.thisED
-    };
-
     const [title, setTitle] = useState('');
+    const [note, setNote] = useState('');
+    const [startDateValue, setSartDateValue] = useState(new Date());
+    const [endDateValue, setEndDateValue] = useState(new Date());
+    const [startTimeValue, setStartTimeValue] = useState(null);
+    const [durValue, setDurValue] = useState('');
+    const [endTimeValue, setEndTimeValue] = useState(null);
+    const [dateError, setDateError] = useState(false);
+    const [timeError, setTimeError] = useState(false);
+    const [currentCat, setCurrentCat] = useState('');
+    const [newCatExpand, setNewCatExpand] = useState(false)
+    const [currentLoc, setCurrentLoc] = useState('');
+    const [newLocExpand, setNewLocExpand] = useState(false)
+
     function handleTitleChange(event){
         setTitle(event.target.value);
         tempPackage.sourceTitle = event.target.value;
-        // props.onExpand(tempPackage);
+        props.onUpdateCC(tempPackage);
     }
-    const [note, setNote] = useState('');
     function handleNoteChange(event){
         setNote(event.target.value);
         tempPackage.sourceNote = event.target.value
-        // props.onExpand(tempPackage);
+        props.onUpdateCC(tempPackage);
     }
 
     function submitHandler(event){
@@ -92,46 +104,49 @@ function CreationCard(props){
     }
 
     // 在創建方塊開啟時偵測 ESC 按鍵，並回傳功能到 CreationInput 頁面做關閉
-    function handleKeyPress(event){
+    function handleESCPress(event){
         if(event.key === 'Escape'){
             console.log('ESC Detected! ');
             props.onESC();
           }
     }
 
-    const [startDateValue, setSartDateValue] = useState(new Date());
+    function handleEnterPress(event){
+        if (event.key === "Enter"){
+            console.log('Entered!');
+            props.onEnter()
+        }
+    }
+
     function handleESDChange(event){
         event.setHours(0);
         event.setMinutes(0);
         event.setSeconds(0);
         setSartDateValue(event);
         tempPackage.sourceESD = event;
-        // props.onExpand(tempPackage);
+        props.onUpdateCC(tempPackage);
         console.log('startDateValue: ' + event);
     }
     
-    const [endDateValue, setEndDateValue] = useState(new Date());
     function handleEEDChange(event){
         event.setHours(23);
         event.setMinutes(59);
         event.setSeconds(59);
         setEndDateValue(event);
         tempPackage.sourceEED = event;
-        // props.onExpand(tempPackage);
+        props.onUpdateCC(tempPackage);
         console.log('endDateValue: ' + event);
     }
     
-    const [startTimeValue, setStartTimeValue] = useState(null);
     function handleESTChange(event){
         setStartTimeValue(event);
         tempPackage.sourceEST = event;
-        // props.onExpand(tempPackage);
+        props.onUpdateCC(tempPackage);
         console.log('startTimeValue: ' + event);
 
         handleEETChange(durValue);
     }   
 
-    const [endTimeValue, setEndTimeValue] = useState(null);
     function handleEETChange(duration){
 
         // const hourDuration = Math.floor(duration/60);
@@ -144,17 +159,11 @@ function CreationCard(props){
                 const addedTime = duration * 60000;
                 tempPackage.sourceEET = new Date(startTimeValue.getTime() + addedTime);
                 setEndTimeValue(tempPackage.sourceEET);
+                props.onUpdateCC(tempPackage);
             }
         }
-        
-        // tempPackage.sourceEET = event;
-        // props.onExpand(tempPackage);
-        // console.log('endTimeValue: ' + event);
     }
 
-
-
-    const [durValue, setDurValue] = useState('');
 
     function handleDurChange(event){
 
@@ -165,14 +174,13 @@ function CreationCard(props){
             const duration = Number(event.target.value);
             setDurValue(event.target.value);
             handleEETChange(duration)
+            tempPackage.sourceED = duration;
+            props.onUpdateCC(tempPackage);
         } 
     }
 
-    
-    const [dateError, setDateError] = useState(false);
-    const [timeError, setTimeError] = useState(false);
-    useEffect(()=>{
 
+    useEffect(()=>{
         // DATE Validation
         if (startDateValue == endDateValue){
             // do nothing.
@@ -207,24 +215,27 @@ function CreationCard(props){
     
     }, [startDateValue, endDateValue, startTimeValue, endTimeValue]);
 
-    const [currentCat, setCurrentCat] = useState('');
-    const [newCatExpand, setNewCatExpand] = useState(false)
-
-    const handleCatSelectChange = (event) => {
-        setCurrentCat(event.target.value);
-        if (event.target.value == "New Category..."){
+    function handleCatSelectChange(event){
+        const catName = event.target.value;
+        setCurrentCat(catName);
+        if (catName == "New Category..."){
             console.log('fire new cat!');
             setNewCatExpand(true);
         } else {
             console.log('no fire! collapse!');
             setNewCatExpand(false);
+            tempPackage.sourceCat = catName;
+            props.onUpdateCC(tempPackage);
         }
     };
 
     const [newCatValue, setNewCatValue] = useState('');
     function newCatInputHandler(event){
-        const val = event.target.value
+        const catName = event.target.value;
+        const val = catName;
         setNewCatValue(val);
+        tempPackage.sourceCat = catName;
+        props.onUpdateCC(tempPackage);
     }
 
     function cancelNewCatHandler(){
@@ -232,27 +243,32 @@ function CreationCard(props){
 
             setCurrentCat('');
             setNewCatExpand(false);
+            tempPackage.sourceCat = '';
+            props.onUpdateCC(tempPackage);
         }
     }
 
-    const [currentLoc, setCurrentLoc] = useState('');
-    const [newLocExpand, setNewLocExpand] = useState(false)
 
-    const handleLocSelectChange = (event) => {
-        setCurrentLoc(event.target.value);
-        if (event.target.value == "New Location..."){
+    function handleLocSelectChange(event) {
+        const locName = event.target.value;
+        setCurrentLoc(locName);
+        if (locName == "New Location..."){
             console.log('fire new Loc!');
             setNewLocExpand(true);
         } else {
             console.log('no fire! collapse!');
             setNewLocExpand(false);
+            tempPackage.sourceCat = locName;
+            props.onUpdateCC(tempPackage);
         }
     };
 
     const [newLocValue, setNewLocValue] = useState('');
     function newLocInputHandler(event){
-        const val = event.target.value
-        setNewLocValue(val);
+        const locName = event.target.value
+        setNewLocValue(locName);
+        tempPackage.sourceCat = locName;
+        props.onUpdateCC(tempPackage);
     }
 
     function cancelNewLocHandler(){
@@ -260,11 +276,13 @@ function CreationCard(props){
 
             setCurrentLoc('');
             setNewLocExpand(false);
+            tempPackage.sourceCat = '';
+            props.onUpdateCC(tempPackage);      
         }
     }
 
     return(
-        <div className={classes.card} onKeyDown={handleKeyPress} tabIndex="0">
+        <div className={classes.card} onKeyDown={(event)=>{handleESCPress(event); handleEnterPress(event)}} tabIndex="0">
             <form  onSubmit={submitHandler}>
                 <div className={classes.titleButtonContainer}>
                 <input onChange={handleTitleChange} value={title} className={classes.title} name="title" autoFocus placeholder="Press esc to cancel..."></input>
@@ -400,7 +418,10 @@ function CreationCard(props){
                     <div className={classes.divider}></div>
 
                     {/* LOCATION SELECT */}
-                    {!newLocExpand && <FormControl size='small' variant="outlined" sx={{ minWidth: 115 }}>
+                    {!newLocExpand && <FormControl 
+                    size='small' 
+                    variant="outlined" 
+                    sx={{ minWidth: 115 }}>
                         <InputLabel>Location</InputLabel>
                         <Select
                         value={currentLoc}
@@ -433,9 +454,6 @@ function CreationCard(props){
                     sx={{ maxWidth: 115 }}
                     />}
                 </LocalizationProvider>
-
-                    
-
                 </div>
             </form>
         </div>

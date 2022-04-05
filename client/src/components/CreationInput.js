@@ -29,13 +29,13 @@ function CreationInput(){
 
     function inputHandler(tempData){
         console.log(tempData)
-        setTitle(tempData.sourceTitle);
-        setNote(tempData.sourceNote);
-        setESD(tempData.sourceESD);
-        setEED(tempData.sourceEED);
-        setEST(tempData.sourceEST);
-        setEET(tempData.sourceEET);
-
+        // setTitle(tempData.sourceTitle);
+        // setNote(tempData.sourceNote);
+        // setESD(tempData.sourceESD);
+        // setEED(tempData.sourceEED);
+        // setEST(tempData.sourceEST);
+        // setEET(tempData.sourceEET);
+        // setED(tempData.sourceED)
     }
 
     const [closeCard, setCloseCard] = useState(false);
@@ -44,6 +44,10 @@ function CreationInput(){
         setCloseCard(true);
         setExpanded(false);
         setCloseCard(false);
+    }
+
+    function submitHandler(){
+        console.log('yy')
     }
 
 
@@ -55,9 +59,10 @@ function CreationInput(){
             </div>}
                 
                 {(expanded && !closeCard) && <CreationCard 
-                    onExpand={inputHandler}  
+                    onUpdateCC={inputHandler}  
                     tempData={tempPackage} 
-                    onESC={closeCardHandler} 
+                    onESC={closeCardHandler}
+                    onEnter={submitHandler}
                 />}
                 {(expanded && !closeCard) && <Backdrop onCollapse={collapseHandler} />}
         
