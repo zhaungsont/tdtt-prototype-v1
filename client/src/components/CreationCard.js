@@ -44,7 +44,6 @@ let tempPackage = {
     sourceLoc: ''
 };
 
-
 const dummyCat = [
     {
         key: 0,
@@ -70,7 +69,6 @@ const dummyLoc = [
     }
 ];
 
-
 function CreationCard(props){
     const [titleValue, setTitle] = useState('');
     const [noteValue, setNote] = useState('');
@@ -91,17 +89,7 @@ function CreationCard(props){
     const [dateError, setDateError] = useState(false);
     const [timeError, setTimeError] = useState(false);
 
-    function handleTitleChange(event){
-        setTitle(event.target.value);
-        tempPackage.sourceTitle = event.target.value;
-        props.onUpdateCC(tempPackage);
-    }
-    function handleNoteChange(event){
-        setNote(event.target.value);
-        tempPackage.sourceNote = event.target.value
-        props.onUpdateCC(tempPackage);
-    }
-
+    // Handles "Submit & Time Track"
     function submitHandler(event){
         event.preventDefault();
         // Prevent Default from behavior of jumping out of page
@@ -115,7 +103,6 @@ function CreationCard(props){
         // we'll handle timetrack logic & data transmission over there.
         
     }
-
     // 在創建方塊開啟時偵測 ESC 按鍵，並回傳功能到 CreationInput 頁面做關閉
     function handleESCPress(event){
         if(event.key === 'Escape'){
@@ -124,13 +111,22 @@ function CreationCard(props){
           }
     }
 
+    function handleTitleChange(event){
+        setTitle(event.target.value);
+        tempPackage.sourceTitle = event.target.value;
+        props.onUpdateCC(tempPackage);
+    }
+    function handleNoteChange(event){
+        setNote(event.target.value);
+        tempPackage.sourceNote = event.target.value
+        props.onUpdateCC(tempPackage);
+    }
     function handleEnterPress(event){
         if (event.key === "Enter"){
             console.log('Entered!');
             props.onSubmitTask()
         }
     }
-
     function handleESDChange(event){
         event.setHours(0);
         event.setMinutes(0);
@@ -140,7 +136,6 @@ function CreationCard(props){
         props.onUpdateCC(tempPackage);
         console.log('startDateValue: ' + event);
     }
-    
     function handleEEDChange(event){
         event.setHours(23);
         event.setMinutes(59);
@@ -150,7 +145,6 @@ function CreationCard(props){
         props.onUpdateCC(tempPackage);
         console.log('endDateValue: ' + event);
     }
-    
     function handleESTChange(event){
         setStartTimeValue(event);
         tempPackage.sourceEST = event;
@@ -159,7 +153,6 @@ function CreationCard(props){
 
         handleEETChange(durValue);
     }   
-
     function handleEETChange(duration){
 
         // const hourDuration = Math.floor(duration/60);
@@ -176,8 +169,6 @@ function CreationCard(props){
             }
         }
     }
-
-
     function handleDurChange(event){
 
         if (!event.target.value) {
@@ -191,7 +182,6 @@ function CreationCard(props){
             props.onUpdateCC(tempPackage);
         } 
     }
-
     useEffect(()=>{
         // DATE Validation
         if (startDateValue == endDateValue){
@@ -226,7 +216,6 @@ function CreationCard(props){
         }
     
     }, [startDateValue, endDateValue, startTimeValue, endTimeValue]);
-
     function handleCatSelectChange(event){
         const catName = event.target.value;
         setCurrentCat(catName);
@@ -240,7 +229,6 @@ function CreationCard(props){
             props.onUpdateCC(tempPackage);
         }
     };
-
     function newCatInputHandler(event){
         const catName = event.target.value;
         const val = catName;
@@ -248,7 +236,6 @@ function CreationCard(props){
         tempPackage.sourceCat = catName;
         props.onUpdateCC(tempPackage);
     }
-
     function cancelNewCatHandler(){
         if (!newCatValue) {
 
@@ -258,8 +245,6 @@ function CreationCard(props){
             props.onUpdateCC(tempPackage);
         }
     }
-
-
     function handleLocSelectChange(event) {
         const locName = event.target.value;
         setCurrentLoc(locName);
@@ -273,14 +258,12 @@ function CreationCard(props){
             props.onUpdateCC(tempPackage);
         }
     };
-
     function newLocInputHandler(event){
         const locName = event.target.value
         setNewLocValue(locName);
         tempPackage.sourceLoc = locName;
         props.onUpdateCC(tempPackage);
     }
-
     function cancelNewLocHandler(){
         if (!newLocValue) {
 
