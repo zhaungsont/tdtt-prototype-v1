@@ -17,7 +17,7 @@ input.title{
     line-height: 3em;
 }
 
-input.title[placeholder]{
+input.title::placeholder{
     font-style: italic;
 }
 
