@@ -35,18 +35,7 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 // const { RangePicker } = DatePicker;
 
-let tempPackage = {
-    sourceTitle: '', 
-    sourceNote: '', 
-    sourceESD: null,
-    sourceEED: null,
-    sourceEST: null,
-    sourceEET: null,
-    sourceED: '',
-    sourceCat: '',
-    sourceLoc: '',
-    invalidDate: null
-};
+
 
 const dummyCat = [
     {
@@ -74,6 +63,32 @@ const dummyLoc = [
 ];
 
 function CreationCard(props){
+    const [tempPackage, setTempPackage] = useState(
+        {
+            sourceTitle: '', 
+            sourceNote: '', 
+            sourceESD: null,
+            sourceEED: null,
+            sourceEST: null,
+            sourceEET: null,
+            sourceED: '',
+            sourceCat: '',
+            sourceLoc: '',
+            invalidDate: null
+        }
+    )
+//     let tempPackage = {
+//     sourceTitle: '', 
+//     sourceNote: '', 
+//     sourceESD: null,
+//     sourceEED: null,
+//     sourceEST: null,
+//     sourceEET: null,
+//     sourceED: '',
+//     sourceCat: '',
+//     sourceLoc: '',
+//     invalidDate: null
+// };
     const newTaskCTX = useContext(newTaskContext);
 
     const [titleValue, setTitle] = useState('');
@@ -118,20 +133,24 @@ function CreationCard(props){
     }
 
     function handleTitleChange(event){
-        setTitle(event.target.value);
-        tempPackage.sourceTitle = event.target.value;
+        // setTitle(event.target.value);
+        // tempPackage.sourceTitle = event.target.value;
+        setTempPackage({...tempPackage, sourceTitle: event.target.value})
         props.onUpdateCC(tempPackage);
     }
     function handleNoteChange(event){
-        setNote(event.target.value);
-        tempPackage.sourceNote = event.target.value
+        // setNote(event.target.value);
+        // tempPackage.sourceNote = event.target.value;
+        setTempPackage({...tempPackage, sourceNote: event.target.value})
         props.onUpdateCC(tempPackage);
     }
     function handleEnterPress(event){
         if (event.key === "Enter"){
-            console.log('Entered!');
-            props.onSubmitTask()
-            props.onESC();
+            if (tempPackage.sourceTitle){
+                props.onSubmitTask();
+                console.log(tempPackage);
+            }
+            // props.onESC();
         }
     }
 
@@ -140,80 +159,85 @@ function CreationCard(props){
         event.setHours(0);
         event.setMinutes(0);
         event.setSeconds(0);
-        setSartDateValue(event);
-        tempPackage.sourceESD = event;
+        // setSartDateValue(event);
+        // tempPackage.sourceESD = event;
+        setTempPackage({...tempPackage, sourceESD: event})
         props.onUpdateCC(tempPackage);
-        console.log('startDateValue: ' + event);
     }
     function handleEEDChange(event){
         event.setHours(23);
         event.setMinutes(59);
         event.setSeconds(59);
-        setEndDateValue(event);
-        tempPackage.sourceEED = event;
+        // setEndDateValue(event);
+        // tempPackage.sourceEED = event;
+        setTempPackage({...tempPackage, sourceEED: event})
         props.onUpdateCC(tempPackage);
-        console.log('endDateValue: ' + event);
     }
     function handleESTChange(event){
-        setStartTimeValue(event);
-        tempPackage.sourceEST = event;
+        // setStartTimeValue(event);
+        // tempPackage.sourceEST = event;
+        setTempPackage({...tempPackage, sourceEST: event})
         props.onUpdateCC(tempPackage);
-        console.log('startTimeValue: ' + event);
 
-        handleEETChange(durValue);
+        handleEETChange(tempPackage.sourceED);
     }   
     function handleEETChange(duration){
-
-        // const hourDuration = Math.floor(duration/60);
-        // console.log('hour: ' + hourDuration);
-        // const minDuation = duration % 60;
-        // console.log('minute: ' + minDuation);
-        if (startTimeValue){
+        if (tempPackage.sourceEST){
             if (duration) {
-
                 const addedTime = duration * 60000;
-                tempPackage.sourceEET = new Date(startTimeValue.getTime() + addedTime);
-                setEndTimeValue(tempPackage.sourceEET);
+                // tempPackage.sourceEET = new Date(startTimeValue.getTime() + addedTime);
+                const newEET = new Date(tempPackage.sourceEST.getTime() + addedTime);
+                setTempPackage({...tempPackage, sourceEET: newEET})
+
+                // setEndTimeValue(tempPackage.sourceEET);
                 props.onUpdateCC(tempPackage);
             }
         }
     }
     function handleDurChange(event){
-
         if (!event.target.value) {
-            setEndTimeValue(null);
-            setDurValue(event.target.value)
+            // setEndTimeValue(null);
+            setTempPackage({...tempPackage, sourceEET: null})
+
+            // setDurValue(event.target.value)
+            setTempPackage({...tempPackage, sourceED: event.target.value})
+            // props.onUpdateCC(tempPackage);
         } else if (!isNaN(event.target.value)){
             const duration = Number(event.target.value);
-            setDurValue(event.target.value);
+            // setDurValue(event.target.value);
             handleEETChange(duration)
-            tempPackage.sourceED = duration;
-            props.onUpdateCC(tempPackage);
+            // tempPackage.sourceED = duration;
+            setTempPackage({...tempPackage, sourceED: duration})
+            // props.onUpdateCC(tempPackage);
         } 
+        props.onUpdateCC(tempPackage);
     }
     useEffect(()=>{
         // DATE Validation
-        if (startDateValue == endDateValue){
+        if (tempPackage.sourceESD == tempPackage.sourceEED){
             // do nothing.
             // this field prevents the two same dates being deemed invalid by js
-        } else if (startDateValue != null && endDateValue != null && startDateValue > endDateValue){
+        } else if (tempPackage.sourceESD != null && tempPackage.sourceEED != null && tempPackage.sourceESD > tempPackage.sourceEED){
             console.log('ERROR! Start Date is later than End Date!');
             setDateError(true)
-            tempPackage.invalidDate = true;
+            // tempPackage.invalidDate = true;
+            setTempPackage({...tempPackage, invalidDate: true})
         } else {
             setDateError(false);
-            tempPackage.invalidDate = false;
+            // tempPackage.invalidDate = false;
+            setTempPackage({...tempPackage, invalidDate: false})
+
         }
 
 
         // TIME Validation
-        if (startDateValue == endDateValue) {
+        if (tempPackage.sourceESD == tempPackage.sourceEED) {
             // the start date and the end date are the same
             // this could either mean:
             // 1. the user has no start or end date
             // 2. the user set start and end date on the same day
             // either way, we NEED TO VALIDATE the TIME
-            if (startTimeValue != null && endTimeValue != null && startTimeValue > endTimeValue){
+            if (tempPackage.sourceEST != null && tempPackage.sourceEET != null && tempPackage.sourceEST > tempPackage.sourceEET){
                 // the user has input both starting & ending time
                 // the starting time is LATER than ending time
                 console.log('ERROR! Start Time is later than End Time!');
@@ -225,62 +249,63 @@ function CreationCard(props){
                 setTimeError(false);
             }
         }
+        props.onUpdateCC(tempPackage);
     
-    }, [startDateValue, endDateValue, startTimeValue, endTimeValue]);
+    }, [tempPackage.sourceESD, tempPackage.sourceEED, tempPackage.sourceEST, tempPackage.sourceEET]);
+
+
     function handleCatSelectChange(event){
         const catName = event.target.value;
-        setCurrentCat(catName);
+        // setCurrentCat(catName);
+
         if (catName == "New Category..."){
-            console.log('fire new cat!');
+            setTempPackage({...tempPackage, sourceCat: ''})
             setNewCatExpand(true);
         } else {
-            console.log('no fire! collapse!');
             setNewCatExpand(false);
-            tempPackage.sourceCat = catName;
+            // tempPackage.sourceCat = catName;
+            setTempPackage({...tempPackage, sourceCat: catName})
             props.onUpdateCC(tempPackage);
         }
+        props.onUpdateCC(tempPackage);
     };
     function newCatInputHandler(event){
         const catName = event.target.value;
-        const val = catName;
-        setNewCatValue(val);
-        tempPackage.sourceCat = catName;
+        setTempPackage({...tempPackage, sourceCat: catName})
+
         props.onUpdateCC(tempPackage);
     }
     function cancelNewCatHandler(){
-        if (!newCatValue) {
-
-            setCurrentCat('');
+        if (!tempPackage.sourceCat) {
             setNewCatExpand(false);
-            tempPackage.sourceCat = '';
             props.onUpdateCC(tempPackage);
         }
     }
     function handleLocSelectChange(event) {
         const locName = event.target.value;
-        setCurrentLoc(locName);
+
         if (locName == "New Location..."){
-            console.log('fire new Loc!');
+            setTempPackage({...tempPackage, sourceLoc: ''});
+
             setNewLocExpand(true);
         } else {
-            console.log('no fire! collapse!');
             setNewLocExpand(false);
-            tempPackage.sourceCat = locName;
-            props.onUpdateCC(tempPackage);
+            setTempPackage({...tempPackage, sourceLoc: locName})
+
         }
+        props.onUpdateCC(tempPackage);
     };
     function newLocInputHandler(event){
         const locName = event.target.value
-        setNewLocValue(locName);
-        tempPackage.sourceLoc = locName;
+        setTempPackage({...tempPackage, sourceLoc: locName})
+
         props.onUpdateCC(tempPackage);
     }
     function cancelNewLocHandler(){
-        if (!newLocValue) {
-
-            setCurrentLoc('');
+        if (!tempPackage.sourceLoc) {
             setNewLocExpand(false);
-            tempPackage.sourceLoc = '';
+            setTempPackage({...tempPackage, sourceLoc: ''})
+
             props.onUpdateCC(tempPackage);      
         }
     }
@@ -289,21 +314,22 @@ function CreationCard(props){
         <div className={classes.card} onKeyDown={(event)=>{handleESCPress(event); handleEnterPress(event)}} tabIndex="0">
             <form  onSubmit={submitHandler}>
                 <div className={classes.titleButtonContainer}>
-                <input onChange={handleTitleChange} value={titleValue} className={classes.title} name="title" autoFocus placeholder="Press esc to cancel..."></input>
+                <input onChange={handleTitleChange} value={tempPackage.sourceTitle} className={classes.title} name="title" autoFocus placeholder="Press esc to cancel..."></input>
                 <div className={classes.spacer}></div>
                 <img className={classes.stbutton} src={require('../dummy-data/icons/play.png')}></img>
                 </div>
 
-                <textarea onChange={handleNoteChange} value={noteValue} rows="4" name="description" placeholder="Note"></textarea>
+                <textarea onChange={handleNoteChange} value={tempPackage.sourceNote} rows="4" name="description" placeholder="Note"></textarea>
 
                 <div className={classes.container}>
                 <div className={classes.spacer}></div>
                 
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
 
+                    {/* Start Date */}
                     <MobileDatePicker
                     label="Start Date"
-                    value={startDateValue}
+                    value={tempPackage.sourceESD}
                     minDate={new Date()}
                     onChange={handleESDChange}
                     renderInput={(params) => 
@@ -319,7 +345,7 @@ function CreationCard(props){
                     <div className={classes.divider}></div>
                     <MobileDatePicker
                     label="End Date"
-                    value={endDateValue}
+                    value={tempPackage.sourceEED}
                     minDate={new Date()}
                     onChange={handleEEDChange}
                     renderInput={(params) => 
@@ -338,7 +364,7 @@ function CreationCard(props){
                     <MobileTimePicker
                     label="Start Time"
                     minutesStep={5}
-                    value={startTimeValue}
+                    value={tempPackage.sourceEST}
                     onChange={handleESTChange}
                     renderInput={(params) => 
                         <TextField 
@@ -359,7 +385,7 @@ function CreationCard(props){
                         size="small"
                         // onBlur={durationValidator}
                         onChange={handleDurChange}
-                        value={durValue}
+                        value={tempPackage.sourceED}
                         sx={{ maxWidth: 115 }}
                     />
 
@@ -371,7 +397,7 @@ function CreationCard(props){
                     disabled={true}
                     label="End Time"
                     minutesStep={5}
-                    value={endTimeValue}
+                    value={tempPackage.sourceEET}
                     onChange={()=>{}}
                     renderInput={(params) => 
                         <TextField 
@@ -389,7 +415,7 @@ function CreationCard(props){
                     {!newCatExpand && <FormControl size='small' variant="outlined" sx={{ minWidth: 115 }}>
                         <InputLabel>Category</InputLabel>
                         <Select
-                        value={currentCat}
+                        value={tempPackage.sourceCat}
                         onChange={handleCatSelectChange}
                         label="Category"
                         autoWidth
@@ -412,7 +438,7 @@ function CreationCard(props){
                     size="small"
                     label={"New Category"}
                     // helperText="Some important text"
-                    value={newCatValue}
+                    value={tempPackage.sourceCat}
                     onChange={newCatInputHandler}
                     type="search"
                     onBlur={cancelNewCatHandler}
@@ -428,7 +454,7 @@ function CreationCard(props){
                     sx={{ minWidth: 115 }}>
                         <InputLabel>Location</InputLabel>
                         <Select
-                        value={currentLoc}
+                        value={tempPackage.sourceLoc}
                         onChange={handleLocSelectChange}
                         label="Location"
                         autoWidth
@@ -451,7 +477,7 @@ function CreationCard(props){
                     size="small"
                     label={"New Location"}
                     // helperText="Some important text"
-                    value={newLocValue}
+                    value={tempPackage.sourceLoc}
                     onChange={newLocInputHandler}
                     type="search"
                     onBlur={cancelNewLocHandler}

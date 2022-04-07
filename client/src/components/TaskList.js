@@ -11,12 +11,41 @@ import classes from "./TaskList.module.css";
 import TODOS from "../dummy-data/tasks/todos";
 import CreationInput from "./CreationInput";
 
-// 暫時用的資料
+
+import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 
 
 function TaskList(){
     const newTaskCTX = useContext(newTaskContext);
     const dummyTasks = newTaskCTX.dummyTaskList;
+    console.log(dummyTasks)
+
+    // function gridFormatConverter(obj){
+    //     obj.ESD = obj.ESD.toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric'});
+    // }
+    
+    // useEffect(()=>{
+    //     dummyTasks.forEach((row)=>{
+    //         row.ESD = row.ESD.toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric'});
+    //       });
+    //     console.log(dummyTasks);
+    // }, [dummyTasks, newTaskCTX.totalTasks]);
+    
+    const rows: GridRowsProp = dummyTasks;
+      
+      const columns: GridColDef[] = [
+        { field: "id", hide: true },
+        { field: "title", headerName: "Title", width: 150 },
+        { field: "ESDString", headerName: "ESD", width: 150 },
+        { field: "ESTString", headerName: "EST", width: 150 },
+        { field: "ED", headerName: "ED", width: 150 },
+        { field: "EEDString", headerName: "EED", width: 150 },
+        { field: "EETString", headerName: "EET", width: 150 },
+        { field: "cat", headerName: "Cat", width: 150 },
+        { field: "loc", headerName: "Loc", width: 150 },
+        { field: "note", headerName: "Note", width: 150 },
+        { field: "dateCreated", headerName: "Date Created", width: 350 }
+      ];
 
     if (newTaskCTX.totalTasks) {
         // console.log(dummyTasks[0].ESD);
@@ -24,7 +53,10 @@ function TaskList(){
             <div className={classes.list}>
                 <h2>Today's Tasks</h2>
                 <CreationInput />
-                {dummyTasks.map((todo) => {
+                <div style={{ height: '80vh', width: "100%" }}>
+                <DataGrid rows={dummyTasks} columns={columns} />
+                </div>
+                {/* {dummyTasks.map((todo) => {
                     return (
                         <TaskItem 
                         title={todo.title}
@@ -37,7 +69,7 @@ function TaskList(){
                         eet={todo.EET && todo.EET.toString()}
                         ed={todo.ED && todo.ED.toString()}
                         />)
-                })}
+                })} */}
     
                 {/* {TODOS.map((todo) => {
                     return (
@@ -68,6 +100,7 @@ function TaskList(){
             <div className={classes.list}>
                 <h2>Today's Tasks</h2>
                 <CreationInput />
+   
                 <h1>You have no tasks!</h1>
             </div>
         );
@@ -76,3 +109,12 @@ function TaskList(){
 }
 
 export default TaskList;
+
+
+/*
+Related Materials
+https://stackoverflow.com/questions/13391579/how-to-rename-json-key
+
+
+
+*/

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
 const NewTaskContext = createContext({
     dummyTaskList: [],
@@ -23,7 +23,11 @@ export function NewTaskContextProvider(props){
             EET: submittedTask.sourceEET,
             ED: submittedTask.sourceED,
             cat: submittedTask.sourceCat,
-            loc: submittedTask.sourceLoc
+            loc: submittedTask.sourceLoc,
+            ESTString: submittedTask.sourceEST ? `${submittedTask.sourceEST.getHours()}:${submittedTask.sourceEST.getMinutes()}` : 'no description!!',
+            EETString: submittedTask.sourceEET ? `${submittedTask.sourceEET.getHours()}:${submittedTask.sourceEET.getMinutes()}` : 'no description!!',
+            // dummy id
+            id: Math.random().toString()
         };
         if (!newTask.ESD){
             const newESD = new Date();
@@ -39,18 +43,45 @@ export function NewTaskContextProvider(props){
             newEED.setSeconds(0);
             newTask.EED = newEED;
         }
+
+        for (let item in newTask){
+            // user did not provide this info
+            if (!newTask[item]){
+                newTask[item] = 'no description';
+                
+            } 
+            // if user provided this info,
+            // else {
+            //     if (item == 'EST') {
+            //         newTask.ESTString = `${submittedTask.sourceEST.getHours()}:${submittedTask.sourceEST.getMinutes()}`;
+            //     }  
+            //     if (item == 'EETString') {
+            //         newTask[item] = `${submittedTask.sourceEET.getHours()}:${submittedTask.sourceEET.getMinutes()}`;
+            //     }
+            // }
+              
+        }
+        newTask.EEDString = newTask.EED.toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric'});
+        newTask.ESDString = newTask.ESD.toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric'});
+        // newTask.ESTString = `${submittedTask.sourceEST.getHours()}:${submittedTask.sourceEST.getMinutes()}`;
+        // newTask.EETString = `${submittedTask.sourceEET.getHours()}:${submittedTask.sourceEET.getMinutes()}`;
+        console.log('new task:')
+        console.log(newTask);
         setNewTask(newTask);
         cancatNewTaskHandler(newTask);
-        console.log('please');
-        console.log(newTask)
+        // console.log('please');
+        // console.log(newTask)
     }
 
     function cancatNewTaskHandler(submittedTask){
-        console.log('below:');
-        console.log(submittedTask);
+        // console.log('below:');
+        // console.log(submittedTask);
+
         setTaskList(prevList=>{
             return prevList.concat(submittedTask);
         })
+        // setTaskList(oldArray => [...oldArray, submittedTask]);
+        console.log(taskList);
     }
 
     const context = {

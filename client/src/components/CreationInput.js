@@ -17,17 +17,18 @@ function CreationInput(){
 
     function collapseHandler(){
         setExpanded(false);
-        console.log(dummyTaskList)
+        // console.log(dummyTaskList)
     }
 
     function inputHandler(tempData){
         console.log(tempData)
         setdraftTask(tempData);
+
     }
 
     const [closeCard, setCloseCard] = useState(false);
     function closeCardHandler(){
-        console.log('closing card, showing Creation Input');
+        // console.log('closing card, showing Creation Input');
         setCloseCard(true);
         setExpanded(false);
         setCloseCard(false);
@@ -36,6 +37,7 @@ function CreationInput(){
     // Handles "Submit and Add to List", but Doesn't Time Track Now!
     function submitHandler(){
         // check for invalid inputs: Empty Title or Invalid Date Spans.
+
         const title = draftTask.sourceTitle.trim();
         const invalidDate = draftTask.invalidDate;
         if (!title || invalidDate){
@@ -43,15 +45,19 @@ function CreationInput(){
         } else {
             // New task created successfully!
             // const dateCreated = new Date();
+            // draftTask.concat({dateCreated: dateCreated});
             // setdraftTask((prevTask)=>{return {...prevTask, created: dateCreated}});
             // setDummyTaskList((prevList)=>[...prevList, draftTask]);
             
             // setDummyTaskList((prev)=>{
             //     return prev.concat(draftTask);
             // })
-            console.log('ggg')
-            console.log(draftTask)
+            // console.log('ggg')
+            // console.log(draftTask)
+            console.log('draft:')
+            console.log(draftTask);
             newTaskCTX.submitNewTask(draftTask);
+            closeCardHandler();
         }
     }
 
