@@ -12,14 +12,16 @@ const taskSchema = new Schema({
     group: { type: String, required: true },
     categories: { type: String, required: true },
     Track: { type: Array, required: true },
-    startTime: { type: Date, required: true },
-    realStartTime: { type: Date, required: true },
-    endTime: { type: Date, required: true },
-    realEndTime: { type: Date, required: true },
-    estimateSumSpentTime: { type: Number, required: true },
-    realSumSpentTime: { type: Number, required: true },
+    EST: { type: Date, required: true },
+    AST: { type: Date, required: true },
+    EET: { type: Date, required: true },
+    AET: { type: Date, required: true },
+    ED: { type: Number, required: true },
+    AD: { type: Number, required: true },
     Notification: { type: Array, required: true },
-    Status: { type: Number, required: true }
+    Status: { type: Number, required: true },
+    userID: { type: Number, required: true },
+    createTime: { type: Date, required: true }
     
   }, {
     timestamps: true,
