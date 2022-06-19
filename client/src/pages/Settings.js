@@ -17,7 +17,6 @@ function Settings(){
             <Sidebar />
             <MainContent>
                 <h1>Settings</h1>
-                <img src={require('../dummy-data/icons/rr.png')} width={lol}></img>
             </MainContent>
         </div>
     );

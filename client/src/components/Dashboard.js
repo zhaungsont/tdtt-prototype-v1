@@ -14,12 +14,12 @@ function Dashboard(){
     }, 60000);
 
     useEffect(() => {
-        if (hour == 0) {
-            setGreeting('12 點了還不睡啊')
+        if (hour == 12) {
+            setGreeting("It's 12, Time to Wrap Things up")
         } else if (hour < 2){
-            setGreeting(hour + ' 點了還不睡啊')
+            setGreeting("It's " + hour + ", Might Wanna Go to Sleep Soon")
         } else if (hour < 4){
-            setGreeting(hour + ' 點了啊啊快睡啊啊啊')
+            setGreeting("It's " + hour + " now, Get to Bed Already")
         } else if (hour < 12){
             setGreeting('Good Morning');
         } else if (hour < 18){
@@ -33,7 +33,7 @@ function Dashboard(){
 
     return (
         <div className={classes.dashboard}>
-            <h1>{greeting}, 炫風雞腿堡.</h1>
+            <h1>{greeting}, Michael.</h1>
             <div className={classes.charts}>
                 <img src={require("../dummy-data/charts/chart1.png")} width="100" ></img>
                 <img src={require("../dummy-data/charts/chart2.png")} width="100" ></img>

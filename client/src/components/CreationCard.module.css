@@ -23,6 +23,7 @@ input.title{
     left: 28px;
     width: 2em;
     vertical-align: middle; 
+    cursor: pointer;
 }
 
 textarea {
@@ -39,10 +40,10 @@ textarea {
     justify-content: flex-end;
 }
 
-div.spacer{
-    font-size: 0; 
-    height: 28px;
-    line-height: 0;
+
+
+.spacer{
+    flex-grow: 10;
 }
 
 label {
@@ -70,4 +71,14 @@ label {
 select {
     height: 1.75em;
     margin-bottom: 0.8em;
+}
+
+.trackButton{
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
